@@ -8,16 +8,25 @@
     <title>Nedocument</title>
 </head>
 <body>
-<button id="btn">
-    ExpExp
+<button id="sign-in-button">
+    Sign in
 </button>
-<dialog open>
+<dialog id="login">
     <form id="login-form">
         <input type="text" name="login">
         <input type="password" name="password">
         <button type="submit">Submit</button>
     </form>
     <button id="registration-button">Registration</button>
+</dialog>
+<dialog id="signup">
+    <form id="signup-form">
+        <input type="text" name="login">
+        <input type="text" name="email">
+        <input type="password" name="password">
+        <button type="submit">Submit</button>
+    </form>
+    <button id="login-button">Login</button>
 </dialog>
 
 <script src="main.js"></script>

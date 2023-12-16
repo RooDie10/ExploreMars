@@ -1,16 +1,23 @@
-const btn = document.querySelector("#btn");
+const signInButton = document.querySelector("#sign-in-button");
 
-btn.addEventListener("click", () => {
-    fetch("http://localhost:3000/main.php", {
-        method: "GET",
-    })
-        .then((res) => {
-            return res.json();
-        })
-        .then((data) => {
-            console.log(data);
-        });
-});
+signInButton.addEventListener("click", (e) => {
+    const login = document.querySelector("#login");
+    login.show();
+})
+const registrationButton = document.querySelector("#registration-button");
+registrationButton.addEventListener("click", (e) => {
+    const login = document.querySelector("#login");
+    login.close();
+    const signup = document.querySelector("#signup");
+    signup.show();
+})
+const loginButton = document.querySelector("#login-button");
+loginButton.addEventListener("click", (e) => {
+    const signup = document.querySelector("#signup");
+    signup.close();
+    const login = document.querySelector("#login");
+    login.show();
+})
 const login_form = document.querySelector("#login-form");
 
 login_form.addEventListener("submit", (e) => {
@@ -21,6 +28,25 @@ login_form.addEventListener("submit", (e) => {
     form_data.append("login", login)
     form_data.append("password", password)
     fetch("http://localhost:3000/vendor/login.php", {
+        method: "Post",
+        body: form_data
+    })
+        .then((res ) => {
+            return res.json()
+        })
+        .then((data) => {
+            console.log(data);
+        })
+})
+
+const signup_form = document.querySelector("#signup-form");
+
+const signupButton = signup_form.querySelector("button[type=submit]")
+signup_form.addEventListener("submit", (e) => {
+    e.preventDefault()
+    const form_data = new FormData(signup_form, signupButton)
+console.log(form_data.entries());
+    fetch("http://localhost:3000/vendor/sign_up.php", {
         method: "Post",
         body: form_data
     })
