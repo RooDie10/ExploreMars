@@ -13,17 +13,17 @@
 </button>
 <dialog id="login">
     <form id="login-form">
-        <input type="text" name="login">
-        <input type="password" name="password">
+        <input placeholder="Username" type="text" name="login">
+        <input placeholder="Password" type="password" name="password">
         <button type="submit">Submit</button>
     </form>
     <button id="registration-button">Registration</button>
 </dialog>
 <dialog id="signup">
     <form id="signup-form">
-        <input type="text" name="login">
-        <input type="text" name="email">
-        <input type="password" name="password">
+        <input placeholder="Username" type="text" name="login">
+        <input placeholder="E-mail" type="text" name="email">
+        <input placeholder="Password" type="password" name="password">
         <button type="submit">Submit</button>
     </form>
     <button id="login-button">Login</button>
