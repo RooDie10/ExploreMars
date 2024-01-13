@@ -57,3 +57,46 @@ console.log(form_data.entries());
             console.log(data);
         })
 })
+
+
+const dialogSignInButton = document.querySelector("#dialog-sign-in-button");
+try {
+    dialogSignInButton.addEventListener("click", (e) => {
+        const login = document.querySelector("#login");
+        login.show();
+    })
+}
+catch (e) {
+    console.log(e);
+}
+const buyTourButton = document.querySelector("#buy-tour-button");
+try {
+    buyTourButton.addEventListener("click", (e) => {
+        const buyDialog = document.querySelector("#buy-dialog");
+        buyDialog.show();
+    })
+}
+catch (e) {
+    console.log(e);
+}
+
+const buy_form = document.querySelector("#buy-selected-tour");
+
+const buyButton = buy_form.querySelector("button[type=submit]")
+buy_form.addEventListener("submit", (e) => {
+    e.preventDefault()
+    const form_data = new FormData(buy_form, buyButton)
+    const select =document.querySelector("#tour_id").value;
+    form_data.append("tour_id", select)
+    console.log(form_data.entries());
+    fetch("http://localhost:3000/vendor/buy.php", {
+        method: "Post",
+        body: form_data
+    })
+        .then((res ) => {
+            return res.json()
+        })
+        .then((data) => {
+            console.log(data);
+        })
+})

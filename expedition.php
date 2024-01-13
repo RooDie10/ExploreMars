@@ -22,15 +22,7 @@ require_once "vendor/connect_vendor.php";
     </style>
 </head>
 <body>
-<header>
-    <h1>Mars Exploration</h1>
-</header>
-
-<nav>
-    <a href="#">Main</a>
-    <a href="#">Profile</a>
-    <a href="#">About Exploration</a>
-</nav>
+    <?php require_once "modules/header.php"; ?>
 <h2>Welcome to our Mars Exploration tour!</h2>
 <p>Here you'll find a brief description of our amazing expedition along with a photo gallery for your enjoyment.</p>
 <p>Our tour is divided into 3 levels:</p>
@@ -52,9 +44,6 @@ foreach ($levels as $item):
             <li><?= $include ?></li>
         <?php endforeach; ?>
          </ul>
-<form>
-    <button type="submit">Buy</button>
-</form>
 </div>
 </section>
 <?php endforeach; ?>
@@ -64,5 +53,36 @@ foreach ($levels as $item):
     <img src="Gallery/image2.jpg" alt="Photo 2">
     <img src="Gallery/image3.png" alt="Photo 3">
 </div>
+    <button id="buy-tour-button">
+Buy a tour
+    </button>
+    <dialog id="buy-dialog">
+        <?php if (!isset($_SESSION['user'])) {
+            ?>
+            <h3>You need to sign in to buy a tour</h3>
+            <button id="dialog-sign-in-button">Sign in</button>
+            <?php
+        } else {
+            ?>
+            <form id="buy-selected-tour">
+                <label>Select a Tour
+                    <select id="tour_id">
+                <?php
+                foreach ($levels as $item):
+                    ?>
+                    <option value="<?= $item['id'] ?>"><?= $item['type'] ?></option>
+                <?php endforeach; ?>
+                </select></label>
+            <button type="submit">
+                Buy
+            </button></form>
+            <?php
+        }
+        ?>
+
+    </dialog>
+
+    <?php require_once "modules/modals.php"; ?>
+    <script src="main.js"></script>
 </body>
 </html>

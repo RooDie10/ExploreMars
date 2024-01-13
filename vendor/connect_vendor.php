@@ -25,3 +25,22 @@ function included($included = '')
 {
     return explode('; ', $included);
 }
+
+function get_user($id)
+{
+    global $connect;
+    $query = "SELECT * FROM `user` WHERE `id` = ?";
+    $statement = $connect->prepare($query);
+    $statement->execute([$id]);
+    $user = $statement->fetch(PDO::FETCH_ASSOC);
+    return $user;
+}
+function get_tour_by_user($id)
+{
+    global $connect;
+    $query= "SELECT * FROM `Levels` WHERE `id` = (SELECT `tour` FROM `user` WHERE `id` = ?)";
+    $statement = $connect->prepare($query);
+    $statement->execute([$id]);
+    $tour = $statement->fetch(PDO::FETCH_ASSOC);
+    return $tour;
+}

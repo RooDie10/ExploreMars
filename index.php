@@ -11,32 +11,10 @@ session_start();
     <title>Exploring Mars</title>
 </head>
 <body>
-<button id="sign-in-button">
-    Sign in
-</button>
-<form action="expedition.php">
-    <button type="submit">
-        About expedition
-    </button>
-</form>
-<dialog id="login">
-    <form id="login-form">
-        <input placeholder="Username or E-mail" type="text" name="login">
-        <input placeholder="Password" type="password" name="password">
-        <button type="submit">Submit</button>
-    </form>
-    <button id="registration-button">Registration</button>
-</dialog>
-<dialog id="signup">
-    <form id="signup-form">
-        <input placeholder="Username" type="text" name="login">
-        <input placeholder="E-mail" type="text" name="email">
-        <input placeholder="Password" type="password" name="password">
-        <button type="submit">Submit</button>
-    </form>
-    <button id="login-button">Login</button>
-</dialog>
+<?php require_once "modules/header.php"; ?>
 
+
+<?php require_once "modules/modals.php"; ?>
 <script src="main.js"></script>
 </body>
 </html>
