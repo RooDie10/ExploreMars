@@ -4,6 +4,7 @@ import {
   getFirestore,
   collection,
   getDocs,
+  addDoc,
   query,
   where
 } from 'firebase/firestore'
@@ -28,5 +29,9 @@ export class FirestoreDB {
     const querySnapshot = await getDocs(q)
     if (querySnapshot.empty) return undefined
     return querySnapshot.docs[0].data()
+  }
+
+  async addUser(userData: User) {
+    return await addDoc(collection(this.db, 'users'), userData)
   }
 }
