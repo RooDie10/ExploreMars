@@ -1,13 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Index</title>
-  <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-  heheh
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Main page</title>
+    <script
+      src="https://unpkg.com/htmx.org@1.9.10"
+      integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header hx-trigger="load" hx-get="/templates/header" hx-swap="beforeend">
+      <h1 class="font-bold text-2xl text-center">Main page</h1>
+    </header>
+
+    <dialog id="signinDialog" class="p-4 rounded-xl">
+      <form
+        hx-post="/api/login"
+        hx-target="body"
+        hx-swap="beforeend"
+        hx-on:submit="closeModal('signinDialog')"
+        class="flex flex-col gap-4 items-center"
+      >
+        <h3 class="text-center font-bold text-xl">Signin</h3>
+        <div>
+          <label class="block self-start" for="email">Email</label>
+          <input class="input" id="SigninEmail" name="email" type="email" />
+        </div>
+        <div>
+          <label class="block self-start" for="password">Password</label>
+          <input
+            class="input"
+            id="SigninPassword"
+            name="password"
+            type="password"
+          />
+        </div>
+        <button class="button w-2/3 my-0" type="submit">Submit</button>
+        <a
+          class="underline text-blue-500 cursor-pointer"
+          hx-on:click="openModal('signupDialog'); closeModal('signinDialog')"
+          >Signup</a
+        >
+      </form>
+    </dialog>
+
+    <dialog id="signupDialog" class="p-4 rounded-xl">
+      <form class="flex flex-col gap-4 items-center">
+        <h3 class="text-center font-bold text-xl">Signup</h3>
+        <div>
+          <label class="block self-start" for="name">Name</label>
+          <input class="input" id="name" name="name" type="text" />
+        </div>
+        <div>
+          <label class="block self-start" for="email">Email</label>
+          <input class="input" id="SignupEmail" name="email" type="email" />
+        </div>
+        <div>
+          <label class="block self-start" for="password">Password</label>
+          <input
+            class="input"
+            id="SignupPassword"
+            name="password"
+            type="password"
+          />
+        </div>
+        <button class="button w-2/3 my-0" type="submit">Submit</button>
+        <a
+          class="underline text-blue-500 cursor-pointer"
+          hx-on:click="openModal('signinDialog'); closeModal('signupDialog')"
+          >Signin</a
+        >
+      </form>
+    </dialog>
+    <script src="js/main.js"></script>
+  </body>
 </html>
