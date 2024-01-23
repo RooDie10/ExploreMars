@@ -29,9 +29,23 @@ export const apiRouter = () => {
     res.send(req.session.user)
   })
 
+  router.post('/signup', async (req: Request, res: Response) => {
+    const user = {
+      name: req.body.name,
+      email: req.body.email,
+      password: req.body.password
+    }
+    await db.addUser(user)
+    req.session.user = user
+    req.session.save((err) => {
+      if (err) throw Error(err)
+    })
+    res.set('HX-Trigger', 'reloadHeader').sendStatus(202)
+  })
+
   router.delete('/logout', (req, res) => {
     req.session.user = null
-    req.session.save(function (err) {
+    req.session.save((err) => {
       if (err) throw Error(err)
     })
     res.set('HX-Trigger', 'reloadHeader').sendStatus(201)

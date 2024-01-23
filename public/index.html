@@ -58,7 +58,13 @@
     </dialog>
 
     <dialog id="signupDialog" class="p-4 rounded-xl">
-      <form class="flex flex-col gap-4 items-center">
+      <form
+        hx-post="/api/signup"
+        hx-target="body"
+        hx-swap="beforeend"
+        hx-on:submit="closeModal('signupDialog')"
+        class="flex flex-col gap-4 items-center"
+      >
         <h3 class="text-center font-bold text-xl">Signup</h3>
         <div>
           <label class="block self-start" for="name">Name</label>
