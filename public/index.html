@@ -12,9 +12,12 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <header hx-trigger="load" hx-get="/templates/header" hx-swap="beforeend">
-      <h1 class="font-bold text-2xl text-center">Main page</h1>
-    </header>
+    <header
+      hx-trigger="load, reloadHeader from:body"
+      hx-get="/templates/header"
+      hx-swap="innerHTML"
+    ></header>
+    <h1 class="font-bold text-2xl text-center">Main page</h1>
 
     <dialog id="signinDialog" class="p-4 rounded-xl">
       <form

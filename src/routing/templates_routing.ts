@@ -17,7 +17,17 @@ export const templatesRouter = () => {
 
   router.get('/header', async (req: Request, res: Response) => {
     const result = await getTemplate('header')
-    res.send(result({}))
+    let prop = {}
+    if (req.session.user != null) {
+      prop = {
+        isUserAuth: true,
+        name: req.session.user.name
+      }
+    } else {
+      prop = { isUserAuth: false }
+    }
+
+    res.send(result(prop))
   })
 
   return router
