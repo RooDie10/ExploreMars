@@ -8,9 +8,11 @@ import {
   query,
   where
 } from 'firebase/firestore'
+import bcrypt from 'bcryptjs'
 import { Status, User } from '../types/api'
 
 export class FirestoreDB {
+  private bc = bcrypt
   private config: object
   private app: FirebaseApp
   private db: Firestore
@@ -38,8 +40,9 @@ export class FirestoreDB {
       }
 
     const user = querySnapshot.docs[0].data()
+    const id = querySnapshot.docs[0].id
 
-    if (user.password !== userData.password)
+    if (!(await this.bc.compare(userData.password, user.password)))
       return {
         status: false,
         message: 'Wrong password',
@@ -47,11 +50,16 @@ export class FirestoreDB {
         data: null
       }
 
+    const response = {
+      id: id,
+      name: user.name
+    }
+
     return {
       status: true,
       message: 'Login successful',
       field: null,
-      data: user
+      data: response
     }
   }
 
@@ -63,9 +71,14 @@ export class FirestoreDB {
 
     const querySnapshot = await getDocs(q)
 
-    if (querySnapshot.empty)
-      return await addDoc(collection(this.db, 'users'), userData)
-
+    if (querySnapshot.empty) {
+      const password = await this.bc.hash(userData.password, 10)
+      return await addDoc(collection(this.db, 'users'), {
+        name: userData.name,
+        email: userData.email,
+        password: password
+      })
+    }
     return null
   }
 }
