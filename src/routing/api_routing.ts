@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express'
+import express, { NextFunction, Request, Response } from 'express'
 import { FirestoreDB } from '../repo/firestore'
 import { firestoreConfig } from '../repo/config'
 
@@ -12,17 +12,34 @@ export const apiRouter = () => {
   const router = express.Router()
   const db = new FirestoreDB(firestoreConfig)
 
-  router.post('/login', async (req: Request, res: Response) => {
+  router.post('/signin', async (req: Request, res: Response) => {
     const user = await db.findUser({
       email: req.body.email,
       password: req.body.password
     })
-    if (!user) return
-    req.session.user = user
+
+    if (!user.status) {
+      switch (user.field) {
+        case 'email':
+          return res.json({
+            error: true,
+            field: 'email',
+            message: user.message
+          })
+        case 'password':
+          return res.json({
+            error: true,
+            field: 'password',
+            message: user.message
+          })
+      }
+    }
+
+    req.session.user = user.data
     req.session.save((err) => {
       if (err) throw Error(err)
     })
-    res.set('HX-Trigger', 'reloadHeader').sendStatus(202)
+    res.set('HX-Trigger', 'reload-header').json({ error: false })
   })
 
   router.get('/ses', (req, res) => {
@@ -35,12 +52,23 @@ export const apiRouter = () => {
       email: req.body.email,
       password: req.body.password
     }
-    await db.addUser(user)
+
+    const newUser = await db.addUser(user)
+
+    if (newUser === null) {
+      return res.json({
+        error: true,
+        field: 'email',
+        message: 'User already exists'
+      })
+    }
+
     req.session.user = user
     req.session.save((err) => {
       if (err) throw Error(err)
     })
-    res.set('HX-Trigger', 'reloadHeader').sendStatus(202)
+    res.set('HX-Trigger', 'reload-header')
+    res.json({ error: false })
   })
 
   router.delete('/logout', (req, res) => {
@@ -48,7 +76,8 @@ export const apiRouter = () => {
     req.session.save((err) => {
       if (err) throw Error(err)
     })
-    res.set('HX-Trigger', 'reloadHeader').sendStatus(201)
+    res.set('HX-Trigger', 'reload-header')
+    res.sendStatus(200)
   })
   return router
 }

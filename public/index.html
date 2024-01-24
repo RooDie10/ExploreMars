@@ -13,7 +13,7 @@
   </head>
   <body>
     <header
-      hx-trigger="load, reloadHeader from:body"
+      hx-trigger="load, reload-header from:body"
       hx-get="/templates/header"
       hx-swap="innerHTML"
     ></header>
@@ -21,10 +21,11 @@
 
     <dialog id="signinDialog" class="p-4 rounded-xl">
       <form
-        hx-post="/api/login"
-        hx-target="body"
-        hx-swap="beforeend"
-        hx-on:submit="closeModal('signinDialog')"
+        hx-post="/api/signin"
+        hx-swap="none"
+        hx-indicator="#signinMessage"
+        hx-disabled-elt="#signinButton"
+        id="signinForm"
         class="flex flex-col gap-4 items-center"
       >
         <h3 class="text-center font-bold text-xl">Signin</h3>
@@ -48,21 +49,23 @@
             required
           />
         </div>
-        <button class="button w-2/3 my-0" type="submit">Submit</button>
+        <button id="signinButton" class="button w-2/3 my-0" type="submit">Submit</button>
         <a
           class="underline text-blue-500 cursor-pointer"
           hx-on:click="openModal('signupDialog'); closeModal('signinDialog')"
           >Signup</a
         >
+        <p id="signinMessage" class="htmx-indicator">Loading</p>
       </form>
     </dialog>
 
     <dialog id="signupDialog" class="p-4 rounded-xl">
       <form
         hx-post="/api/signup"
-        hx-target="body"
-        hx-swap="beforeend"
-        hx-on:submit="closeModal('signupDialog')"
+        hx-swap="none"
+        id="signupForm"
+        hx-indicator="#signupMessage"
+        hx-disabled-elt="#signupButton"
         class="flex flex-col gap-4 items-center"
       >
         <h3 class="text-center font-bold text-xl">Signup</h3>
@@ -90,12 +93,13 @@
             required
           />
         </div>
-        <button class="button w-2/3 my-0" type="submit">Submit</button>
+        <button id="signupButton" class="button w-2/3 my-0" type="submit">Submit</button>
         <a
           class="underline text-blue-500 cursor-pointer"
           hx-on:click="openModal('signinDialog'); closeModal('signupDialog')"
           >Signin</a
         >
+        <p id="signupMessage" class="htmx-indicator">Loading</p>
       </form>
     </dialog>
     <script src="js/main.js"></script>

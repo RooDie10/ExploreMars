@@ -8,30 +8,64 @@ import {
   query,
   where
 } from 'firebase/firestore'
-import { User } from '../types/user_type'
+import { Status, User } from '../types/api'
 
 export class FirestoreDB {
   private config: object
   private app: FirebaseApp
   private db: Firestore
+
   constructor(config: object) {
     this.config = config
     this.app = initializeApp(this.config)
     this.db = getFirestore(this.app)
   }
 
-  async findUser(userData: User) {
+  async findUser(userData: User): Promise<Status> {
     const q = query(
       collection(this.db, 'users'),
-      where('email', '==', userData.email),
-      where('password', '==', userData.password)
+      where('email', '==', userData.email)
     )
+
     const querySnapshot = await getDocs(q)
-    if (querySnapshot.empty) return undefined
-    return querySnapshot.docs[0].data()
+
+    if (querySnapshot.empty)
+      return {
+        status: false,
+        message: 'User not found',
+        field: 'email',
+        data: null
+      }
+
+    const user = querySnapshot.docs[0].data()
+
+    if (user.password !== userData.password)
+      return {
+        status: false,
+        message: 'Wrong password',
+        field: 'password',
+        data: null
+      }
+
+    return {
+      status: true,
+      message: 'Login successful',
+      field: null,
+      data: user
+    }
   }
 
   async addUser(userData: User) {
-    return await addDoc(collection(this.db, 'users'), userData)
+    const q = query(
+      collection(this.db, 'users'),
+      where('email', '==', userData.email)
+    )
+
+    const querySnapshot = await getDocs(q)
+
+    if (querySnapshot.empty)
+      return await addDoc(collection(this.db, 'users'), userData)
+
+    return null
   }
 }
