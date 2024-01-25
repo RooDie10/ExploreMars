@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express'
+import express, { NextFunction, Request, Response } from 'express'
 import fs from 'fs'
 import Handlebars from 'handlebars'
 import { FirestoreDB } from '../repo/firestore'
@@ -37,6 +37,13 @@ export const templatesRouter = () => {
     const levels = await db.getLevels()
     const result = await getTemplate('levels')
     res.send(result(levels))
+  })
+
+  router.get('/profile', async (req, res) => {
+    if (req.session.user == null) return res.redirect('/')
+    const user = await db.getUserById(req.session.user.id)
+    const result = await getTemplate('profile')
+    res.send(result(user))
   })
 
   return router

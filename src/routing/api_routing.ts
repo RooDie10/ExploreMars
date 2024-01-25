@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express'
 import { FirestoreDB } from '../repo/firestore'
 import { firestoreConfig } from '../repo/config'
+import { log } from 'handlebars/runtime'
 
 declare module 'express-session' {
   export interface SessionData {
@@ -42,8 +43,8 @@ export const apiRouter = () => {
     res.set('HX-Trigger', 'reload-header').json({ error: false })
   })
 
-  router.get('/ses', (req, res) => {
-    res.send(req.session.user)
+  router.get('/', (req: Request, res: Response) => {
+    res.redirect('back')
   })
 
   router.post('/signup', async (req: Request, res: Response) => {
@@ -71,13 +72,16 @@ export const apiRouter = () => {
     res.json({ error: false })
   })
 
-  router.delete('/logout', (req, res) => {
+  router.delete('/logout', (req: Request, res: Response) => {
     req.session.user = null
     req.session.save((err) => {
       if (err) throw Error(err)
     })
-    res.set('HX-Trigger', 'reload-header')
-    res.sendStatus(200)
+
+    const ref = req.get('referer')
+    if (ref?.includes('/profile'))
+      return res.set('HX-Redirect', '/').sendStatus(200)
+    res.set('HX-Trigger', 'reload-header').sendStatus(200)
   })
   return router
 }

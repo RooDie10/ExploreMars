@@ -1,5 +1,5 @@
 import { initializeApp, FirebaseApp } from 'firebase/app'
-import { Firestore } from 'firebase/firestore'
+import { Firestore, doc, getDoc } from 'firebase/firestore'
 import {
   getFirestore,
   collection,
@@ -92,7 +92,13 @@ export class FirestoreDB {
       const id = doc.id
       return { id, data }
     })
-    
+
     return levels
+  }
+
+  async getUserById(id: string) {
+    const docRef = doc(this.db, 'users', id)
+    const docSnap = await getDoc(docRef)
+    return docSnap.data()
   }
 }
