@@ -92,7 +92,6 @@ export class FirestoreDB {
       const id = doc.id
       return { id, data }
     })
-    console.log(levels[0].data.included);
     
     return levels
   }
