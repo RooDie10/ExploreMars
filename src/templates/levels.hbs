@@ -1,0 +1,12 @@
+{{#each this}}
+  <div class="mx-auto my-4 w-2/3">
+    <h4>{{data.type}}</h4>
+    <p>{{data.description}}</p>
+    <p>{{data.price}}</p>
+    <ul>
+      {{#each data.included}}
+        <li>{{this}}</li>
+      {{/each}}
+    </ul>
+  </div>
+{{/each}}

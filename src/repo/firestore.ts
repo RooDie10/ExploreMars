@@ -81,4 +81,19 @@ export class FirestoreDB {
     }
     return null
   }
+
+  async getLevels() {
+    const q = query(collection(this.db, 'levels'))
+
+    const querySnapshot = await getDocs(q)
+
+    const levels = querySnapshot.docs.map((doc) => {
+      const data = doc.data()
+      const id = doc.id
+      return { id, data }
+    })
+    console.log(levels[0].data.included);
+    
+    return levels
+  }
 }

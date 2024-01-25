@@ -1,6 +1,8 @@
 import express, { Request, Response } from 'express'
 import fs from 'fs'
 import Handlebars from 'handlebars'
+import { FirestoreDB } from '../repo/firestore'
+import { firestoreConfig } from '../repo/config'
 
 const getTemplate = async (
   path: string
@@ -14,6 +16,7 @@ const getTemplate = async (
 
 export const templatesRouter = () => {
   const router = express.Router()
+  const db = new FirestoreDB(firestoreConfig)
 
   router.get('/header', async (req: Request, res: Response) => {
     const result = await getTemplate('header')
@@ -28,6 +31,12 @@ export const templatesRouter = () => {
     }
 
     res.send(result(prop))
+  })
+
+  router.get('/levels', async (req, res) => {
+    const levels = await db.getLevels()
+    const result = await getTemplate('levels')
+    res.send(result(levels))
   })
 
   return router
