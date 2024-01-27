@@ -23,6 +23,12 @@ app.use(express.json())
 app.use('/templates', templatesRouter())
 app.use('/api', apiRouter())
 
-app.listen(+port, '0.0.0.0', () =>
-  console.log(`server is listening on port ${port}\nhttp://localhost:${port}/`)
-)
+if (!process.env.PORT) {
+  app.listen(port, () =>
+    console.log(
+      `server is listening on port ${port}\nhttp://localhost:${port}/`
+    )
+  )
+} else {
+  app.listen(+port, '0.0.0.0')
+}
