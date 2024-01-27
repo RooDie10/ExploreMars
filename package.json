@@ -6,7 +6,7 @@
   "author": "RooDie10 <hudoyrusskiyy123@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon dist/index.js",
+    "nodemon": "nodemon dist/index.js",
     "tsc": "tsc -w",
     "tailwind": "tailwindcss -i ./src/css/input.css -o ./public/css/style.css --watch"
   },

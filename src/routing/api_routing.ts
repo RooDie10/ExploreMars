@@ -8,6 +8,16 @@ declare module 'express-session' {
   }
 }
 
+const modifySession = (req: Request, data: {} | null) => {
+  req.session.regenerate((err) => {
+    if (err) throw Error(err)
+  })
+  req.session.user = data
+  req.session.save((err) => {
+    if (err) throw Error(err)
+  })
+}
+
 export const apiRouter = () => {
   const router = express.Router()
   const db = new FirestoreDB(firestoreConfig)
@@ -26,6 +36,7 @@ export const apiRouter = () => {
             field: 'email',
             message: user.message
           })
+
         case 'password':
           return res.json({
             error: true,
@@ -35,10 +46,7 @@ export const apiRouter = () => {
       }
     }
 
-    req.session.user = user.data
-    req.session.save((err) => {
-      if (err) throw Error(err)
-    })
+    modifySession(req, user.data)
     res.set('HX-Trigger', 'reload-user').json({ error: false })
   })
 
@@ -58,15 +66,15 @@ export const apiRouter = () => {
         message: 'User already exists'
       })
     }
+    let userName
+    if (newUser.userData) userName = newUser.userData.name
+    const result = { id: newUser.id, name: userName, level: null }
+    modifySession(req, result)
 
-    req.session.user = user
-    req.session.save((err) => {
-      if (err) throw Error(err)
-    })
-    res.set('HX-Trigger', 'reload-user')
-    res.json({ error: false })
+    res.set('HX-Trigger', 'reload-user').json({ error: false })
   })
 
+  // wip
   router.post('/buy', async (req: Request, res: Response) => {
     if (req.session.user == null)
       return res.json({
@@ -81,17 +89,18 @@ export const apiRouter = () => {
 
     res.json({ error: false })
   })
+  //
 
   router.delete('/logout', (req: Request, res: Response) => {
-    req.session.user = null
-    req.session.save((err) => {
-      if (err) throw Error(err)
-    })
+    modifySession(req, null)
 
     const ref = req.get('referer')
+
     if (ref?.includes('/profile'))
       return res.set('HX-Redirect', '/').sendStatus(200)
+
     res.set('HX-Trigger', 'reload-user').sendStatus(200)
   })
+
   return router
 }

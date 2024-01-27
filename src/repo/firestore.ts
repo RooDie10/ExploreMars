@@ -76,11 +76,13 @@ export class FirestoreDB {
 
     if (querySnapshot.empty) {
       const password = await this.bc.hash(userData.password, 10)
-      return await addDoc(collection(this.db, 'users'), {
+      const newUserRef = await addDoc(collection(this.db, 'users'), {
         name: userData.name,
         email: userData.email,
         password: password
       })
+      const newUserSnap = await getDoc(newUserRef)
+      return { id: newUserSnap.id, userData: newUserSnap.data() }
     }
     return null
   }
@@ -89,6 +91,7 @@ export class FirestoreDB {
     let docRef
     let docSnap
     let result
+
     if (id) {
       docRef = doc(this.db, 'levels', id)
       docSnap = await getDoc(docRef)
@@ -108,6 +111,7 @@ export class FirestoreDB {
 
   async buyLevel(userId: string, levelId: string) {
     const userRef = doc(this.db, 'users', userId)
+    
     await updateDoc(userRef, {
       level: levelId
     })
