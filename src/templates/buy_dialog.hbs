@@ -1,3 +1,7 @@
+<a
+  hx-on:click="closeModal('buyDialog')"
+  class='absolute right-4 w-4 leading-4 text-center p-1'
+>x</a>
 <form
   hx-post='api/buy'
   hx-swap='none'
@@ -6,10 +10,10 @@
   id='buyForm'
   class='flex flex-col gap-4'
 >
-  <h2 class='text-xl font-bold'>Buy tour</h2>
+  <h2 class='text-xl font-bold mt-4'>Buy tour</h2>
   <div>
     <label class='block' for='levelSelect'>Select level</label>
-    <select class='w-full' name='selectedLevelId' id='levelSelect'>
+    <select class='w-full p-2 rounded-lg bg-blue-200' name='selectedLevelId' id='levelSelect'>
       {{#each this}}
         <option value='{{id}}'>{{data.type}}</option>
       {{/each}}

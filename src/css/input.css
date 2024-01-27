@@ -4,7 +4,7 @@
 
 @layer components {
   .button {
-    @apply p-2 rounded-xl font-bold bg-blue-600 text-white;
+    @apply p-2 rounded-xl font-bold bg-blue-600 text-white text-nowrap;
   }
   .input {
     @apply p-2 rounded-xl bg-blue-100;

@@ -1,4 +1,5 @@
-<dialog id='signinDialog' class='dialog'>
+<dialog id='signinDialog' class='dialog relative'>
+  <a hx-on:click="closeModal('signinDialog')" class=" absolute right-6 w-4 leading-4 text-center p-1">x</a>
   <form
     hx-post='/api/signin'
     hx-swap='none'
@@ -7,7 +8,7 @@
     id='signinForm'
     class='flex flex-col gap-4 items-center'
   >
-    <h3 class='text-center font-bold text-xl'>Signin</h3>
+    <h3 class='text-center font-bold text-xl mt-4'>Signin</h3>
     <div>
       <label class='block self-start' for='SigninEmail'>Email</label>
       <input
@@ -42,6 +43,7 @@
 </dialog>
 
 <dialog id='signupDialog' class='dialog'>
+  <a hx-on:click="closeModal('signupDialog')" class=" absolute right-6 w-4 leading-4 text-center p-1">x</a>
   <form
     hx-post='/api/signup'
     hx-swap='none'

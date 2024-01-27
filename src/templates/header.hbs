@@ -1,6 +1,6 @@
 <div class='flex justify-center gap-2'>
   {{#if isUserAuth}}
-    <h1>Hello {{name}}!</h1>
+    <p class="text-nowrap hidden md:block">Hello {{name}}!</p>
     <a class="button" href='/profile'>Profile</a>
   {{else}}
     <button
@@ -9,7 +9,7 @@
     >Sign in</button>
     <button
       hx-on:click="openModal('signupDialog')"
-      class='button'
+      class='hidden md:block button'
     >Sign up</button>
   {{/if}}
 </div>
