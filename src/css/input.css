@@ -27,4 +27,7 @@
   .header {
     @apply flex items-center justify-between sticky h-16 px-8;
   }
+  .dialog {
+    @apply p-4 rounded-xl;
+  }
 }

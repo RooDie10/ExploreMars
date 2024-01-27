@@ -1,5 +1,5 @@
 import { initializeApp, FirebaseApp } from 'firebase/app'
-import { Firestore, doc, getDoc } from 'firebase/firestore'
+import { Firestore, doc, getDoc, updateDoc } from 'firebase/firestore'
 import {
   getFirestore,
   collection,
@@ -52,8 +52,11 @@ export class FirestoreDB {
 
     const response = {
       id: id,
-      name: user.name
+      name: user.name,
+      level: null
     }
+
+    if (user.level) response.level = user.level
 
     return {
       status: true,
@@ -94,6 +97,14 @@ export class FirestoreDB {
     })
 
     return levels
+  }
+
+  async buyLevel(userId: string, levelId: string) {
+    const userRef = doc(this.db, 'users', userId)
+    await updateDoc(userRef, {
+      level: levelId
+    })
+    return true
   }
 
   async getUserById(id: string) {

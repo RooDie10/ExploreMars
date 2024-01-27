@@ -1,0 +1,21 @@
+<form
+  hx-post='api/buy'
+  hx-swap='none'
+  hx-indicator='#buyMessage'
+  hx-disabled-elt='#buyButton'
+  id='buyForm'
+  class='flex flex-col gap-4'
+>
+  <h2 class='text-xl font-bold'>Buy tour</h2>
+  <div>
+    <label class='block' for='levelSelect'>Select level</label>
+    <select class='w-full' name='selectedLevelId' id='levelSelect'>
+      {{#each this}}
+        <option value='{{id}}'>{{data.type}}</option>
+      {{/each}}
+    </select>
+  </div>
+  <button id='buyButton' class='button' type='submit'>buy</button>
+  <p id='buyMessage' class='htmx-indicator'>Loading</p>
+</form>
+<script src='js/buy_dialog.js'></script>

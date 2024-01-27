@@ -607,6 +607,11 @@ video {
   padding-right: 2rem;
 }
 
+.dialog {
+  border-radius: 0.75rem;
+  padding: 1rem;
+}
+
 .visible {
   visibility: visible;
 }
@@ -712,6 +717,10 @@ video {
 
 .w-3\/4 {
   width: 75%;
+}
+
+.w-full {
+  width: 100%;
 }
 
 .border-collapse {

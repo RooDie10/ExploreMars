@@ -55,6 +55,12 @@ export const templatesRouter = () => {
     const result = await getTemplate('dialogs')
     res.send(result({}))
   })
+  
+  router.get('/buy_dialog', async (req: Request, res: Response) => {
+    const levels = await db.getLevels()
+    const result = await getTemplate('buy_dialog')
+    res.send(result(levels))
+  })
 
   return router
 }

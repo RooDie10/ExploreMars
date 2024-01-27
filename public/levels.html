@@ -35,18 +35,19 @@
       hx-get="/templates/levels"
       hx-target="#levels"
       hx-trigger="load"
+      hx-swap="afterbegin"
     >
       <h1 class="h1">levels</h1>
       <p>info about levels</p>
 
-      <section id="levels"></section>
-
-      <div
-        hx-get="/templates/buy"
-        hx-swap="innerHTML"
-        hx-target="this"
-        hx-trigger="load, reload-user from:body"
-      ></div>
+      <section id="levels">
+        <div
+          hx-get="/templates/buy"
+          hx-swap="innerHTML"
+          hx-target="this"
+          hx-trigger="load, reload-user from:body"
+        ></div>
+      </section>
     </main>
 
     <div
@@ -54,5 +55,15 @@
       hx-swap="outerHTML"
       hx-trigger="load"
     ></div>
+
+    <dialog
+      class="dialog"
+      id="buyDialog"
+      hx-get="templates/buy_dialog"
+      hx-trigger="intersect"
+      hx-swap="innerHTML"
+    ></dialog>
+
+    <script src="js/main.js"></script>
   </body>
 </html>
