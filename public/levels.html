@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Main page</title>
+    <title>Levels</title>
     <link rel="stylesheet" href="css/style.css" />
     <script
       src="https://unpkg.com/htmx.org@1.9.10"
@@ -30,12 +30,29 @@
       ></div>
     </header>
 
-    <main class="wrapper">
-      <h1 class="h1">Main page</h1>
-      <p>something about us</p>
-      <a class="link" href="">click to see options</a>
+    <main
+      class="wrapper"
+      hx-get="/templates/levels"
+      hx-target="#levels"
+      hx-trigger="load"
+    >
+      <h1 class="h1">levels</h1>
+      <p>info about levels</p>
+
+      <section id="levels"></section>
+
+      <div
+        hx-get="/templates/buy"
+        hx-swap="innerHTML"
+        hx-target="this"
+        hx-trigger="load, reload-user from:body"
+      ></div>
     </main>
 
-    <div class="hidden" hx-get="/templates/dialogs" hx-swap="outerHTML" hx-trigger="load"></div>
+    <div
+      hx-get="/templates/dialogs"
+      hx-swap="outerHTML"
+      hx-trigger="load"
+    ></div>
   </body>
 </html>

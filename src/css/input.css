@@ -15,4 +15,16 @@
   .button:disabled {
     @apply bg-blue-300 cursor-not-allowed;
   }
+  .wrapper {
+    @apply w-3/4 mx-auto;
+  }
+  .link {
+    @apply text-blue-500 hover:text-blue-800 underline;
+  }
+  .h1 {
+    @apply font-bold text-3xl mb-4;
+  }
+  .header {
+    @apply flex items-center justify-between sticky h-16 px-8;
+  }
 }

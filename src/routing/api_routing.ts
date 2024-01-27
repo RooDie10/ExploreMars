@@ -40,7 +40,7 @@ export const apiRouter = () => {
     req.session.save((err) => {
       if (err) throw Error(err)
     })
-    res.set('HX-Trigger', 'reload-header').json({ error: false })
+    res.set('HX-Trigger', 'reload-user').json({ error: false })
   })
 
   router.get('/', (req: Request, res: Response) => {
@@ -68,7 +68,7 @@ export const apiRouter = () => {
     req.session.save((err) => {
       if (err) throw Error(err)
     })
-    res.set('HX-Trigger', 'reload-header')
+    res.set('HX-Trigger', 'reload-user')
     res.json({ error: false })
   })
 
@@ -81,7 +81,7 @@ export const apiRouter = () => {
     const ref = req.get('referer')
     if (ref?.includes('/profile'))
       return res.set('HX-Redirect', '/').sendStatus(200)
-    res.set('HX-Trigger', 'reload-header').sendStatus(200)
+    res.set('HX-Trigger', 'reload-user').sendStatus(200)
   })
   return router
 }

@@ -3,6 +3,7 @@ import fs from 'fs'
 import Handlebars from 'handlebars'
 import { FirestoreDB } from '../repo/firestore'
 import { firestoreConfig } from '../repo/config'
+import { isUserAuth } from './middlewares/middlewares'
 
 const getTemplate = async (
   path: string
@@ -14,6 +15,11 @@ const getTemplate = async (
   return Handlebars.compile(template)
 }
 
+const checkUser = (req: Request) => {
+  if (req.session.user != null) return true
+  return false
+}
+
 export const templatesRouter = () => {
   const router = express.Router()
   const db = new FirestoreDB(firestoreConfig)
@@ -21,29 +27,33 @@ export const templatesRouter = () => {
   router.get('/header', async (req: Request, res: Response) => {
     const result = await getTemplate('header')
     let prop = {}
-    if (req.session.user != null) {
-      prop = {
-        isUserAuth: true,
-        name: req.session.user.name
-      }
-    } else {
-      prop = { isUserAuth: false }
-    }
-
+    if (checkUser(req)) prop = { isUserAuth: true, name: req.session.user.name }
+    else prop = { isUserAuth: false }
     res.send(result(prop))
   })
 
-  router.get('/levels', async (req, res) => {
+  router.get('/levels', async (req: Request, res: Response) => {
     const levels = await db.getLevels()
     const result = await getTemplate('levels')
     res.send(result(levels))
   })
 
-  router.get('/profile', async (req, res) => {
-    if (req.session.user == null) return res.redirect('/')
+  router.get('/profile', async (req: Request, res: Response) => {
+    if (!checkUser(req)) return res.redirect('/')
     const user = await db.getUserById(req.session.user.id)
     const result = await getTemplate('profile')
     res.send(result(user))
+  })
+
+  router.get('/buy', async (req: Request, res: Response) => {
+    let prop = { isUserAuth: checkUser(req) }
+    const result = await getTemplate('buy')
+    res.send(result(prop))
+  })
+
+  router.get('/dialogs', async (req: Request, res: Response) => {
+    const result = await getTemplate('dialogs')
+    res.send(result({}))
   })
 
   return router
