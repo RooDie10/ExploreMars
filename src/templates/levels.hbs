@@ -1,17 +1,19 @@
-<ul>
-
-  {{#each this}}
-    <li class='mx-auto my-4 w-2/3 p-4 rounded-xl bg-blue-100'>
-      <h4>Type: {{data.type}}</h4>
-      <p>Description: {{data.description}}</p>
-      <p>Price: {{data.price}}</p>
-      <p>Included:</p>
-      <ul class="list-disc p-4">
-        {{#each data.included}}
-          <li>{{this}}</li>
-        {{/each}}
-      </ul>
-    </li>
-  {{/each}}
-
-</ul>
+{{#if isArray}}
+  <ul>
+    {{#each data}}
+      <li class='mx-auto my-4 w-2/3 p-4 rounded-xl bg-blue-100'>
+        <h4>Type: {{data.type}}</h4>
+        <p>Description: {{data.description}}</p>
+        <p>Price: {{data.price}}</p>
+        <p>Included:</p>
+        <ul class='list-disc p-4'>
+          {{#each data.included}}
+            <li>{{this}}</li>
+          {{/each}}
+        </ul>
+      </li>
+    {{/each}}
+  </ul>
+{{else}}
+  {{data.data.type}}
+{{/if}}

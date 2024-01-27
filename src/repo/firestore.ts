@@ -85,18 +85,25 @@ export class FirestoreDB {
     return null
   }
 
-  async getLevels() {
-    const q = query(collection(this.db, 'levels'))
+  async getLevels(id?: string) {
+    let docRef
+    let docSnap
+    let result
+    if (id) {
+      docRef = doc(this.db, 'levels', id)
+      docSnap = await getDoc(docRef)
+      result = { id: docSnap.id, data: docSnap.data() }
+    } else {
+      docRef = query(collection(this.db, 'levels'))
+      docSnap = await getDocs(docRef)
+      result = docSnap.docs.map((doc) => {
+        const data = doc.data()
+        const id = doc.id
+        return { id, data }
+      })
+    }
 
-    const querySnapshot = await getDocs(q)
-
-    const levels = querySnapshot.docs.map((doc) => {
-      const data = doc.data()
-      const id = doc.id
-      return { id, data }
-    })
-
-    return levels
+    return result
   }
 
   async buyLevel(userId: string, levelId: string) {

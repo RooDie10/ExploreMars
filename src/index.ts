@@ -1,7 +1,7 @@
 import express from 'express'
+import session from 'express-session'
 import { templatesRouter } from './routing/templates_routing'
 import { apiRouter } from './routing/api_routing'
-import session from 'express-session'
 import { isUserAuth } from './routing/middlewares/middlewares'
 
 const app = express()

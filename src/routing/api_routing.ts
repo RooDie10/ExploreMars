@@ -78,7 +78,7 @@ export const apiRouter = () => {
     const userId = req.session.user.id
     const selectedLevelId = req.body.selectedLevelId
     const result = await db.buyLevel(userId, selectedLevelId)
-    
+
     res.json({ error: false })
   })
 

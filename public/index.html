@@ -33,10 +33,15 @@
     <main class="wrapper">
       <h1 class="h1">Main page</h1>
       <p>something about us</p>
-      <a class="link" href="">click to see options</a>
+      <a class="link" href="/levels">click to see options</a>
     </main>
 
-    <div class="hidden" hx-get="/templates/dialogs" hx-swap="outerHTML" hx-trigger="load"></div>
+    <div
+      class="hidden"
+      hx-get="/templates/dialogs"
+      hx-swap="outerHTML"
+      hx-trigger="load"
+    ></div>
     <script src="js/main.js"></script>
   </body>
 </html>

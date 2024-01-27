@@ -1,7 +1,13 @@
-<h2>{{name}}</h2>
-<p>{{email}}</p>
+<h2><strong>Name: </strong> {{name}}</h2>
+<p><strong>Email: </strong> {{email}}</p>
 <button hx-delete='/api/logout' class='button'>Logout</button>
 
 {{#if level}}
-   <p>your level is: {{level}}</p>
+  <p id='level'><strong>your level is: </strong>
+    <a
+      hx-get='/templates/levels'
+      hx-vars="id:'{{level}}'"
+      hx-trigger='load'
+      hx-swap='outerHTML'
+    ></a></p>
 {{/if}}

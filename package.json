@@ -8,8 +8,7 @@
   "scripts": {
     "dev": "nodemon dist/index.js",
     "tsc": "tsc -w",
-    "tailwind": "tailwindcss -i ./src/css/input.css -o ./public/css/style.css --watch",
-    "install": "yarn add"
+    "tailwind": "tailwindcss -i ./src/css/input.css -o ./public/css/style.css --watch"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

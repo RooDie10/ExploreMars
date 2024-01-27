@@ -33,9 +33,20 @@ export const templatesRouter = () => {
   })
 
   router.get('/levels', async (req: Request, res: Response) => {
-    const levels = await db.getLevels()
+    let levels
+    let prop
+    if (req.query.id != null) {
+      levels = await db.getLevels(req.query.id.toString())
+      prop = { isArray: false, data: levels }
+      console.log(prop);
+      
+    } else {
+      levels = await db.getLevels()
+      prop = { isArray: true, data: levels }
+    }
+
     const result = await getTemplate('levels')
-    res.send(result(levels))
+    res.send(result(prop))
   })
 
   router.get('/profile', async (req: Request, res: Response) => {
@@ -55,7 +66,7 @@ export const templatesRouter = () => {
     const result = await getTemplate('dialogs')
     res.send(result({}))
   })
-  
+
   router.get('/buy_dialog', async (req: Request, res: Response) => {
     const levels = await db.getLevels()
     const result = await getTemplate('buy_dialog')
