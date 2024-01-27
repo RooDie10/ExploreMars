@@ -5,7 +5,7 @@ import { apiRouter } from './routing/api_routing'
 import { isUserAuth } from './routing/middlewares/middlewares'
 
 const app = express()
-const port = 3000 || process.env.PORT
+const port = process.env.PORT || 3000
 
 app.use(
   session({
@@ -23,6 +23,6 @@ app.use(express.json())
 app.use('/templates', templatesRouter())
 app.use('/api', apiRouter())
 
-app.listen(port, () =>
+app.listen(+port, '0.0.0.0', () =>
   console.log(`server is listening on port ${port}\nhttp://localhost:${port}/`)
 )
