@@ -27,8 +27,8 @@ app.use('/', mainRouter())
 app.use('/views', viewsRouter())
 app.use('/api', apiRouter())
 
-if(!process.env.PORT) app.listen(+port, '0.0.0.0', () => {})
-else app.listen(port, () => {
-  console.log(`localhost:${port}`);
-  
-})
+if (!process.env.PORT) app.listen(+port, '0.0.0.0', () => {})
+else
+  app.listen(port, () => {
+    console.log(`localhost:${port}`)
+  })
