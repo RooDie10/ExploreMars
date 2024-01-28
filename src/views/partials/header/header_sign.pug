@@ -1,0 +1,7 @@
+div(class='flex justify-center gap-2')
+  if isUserAuth
+    p hello #{userData.name}
+    a.button(href="/profile") Profile 
+  else
+    button.button(hx-on:click="openModal('signinDialog')") Sign in
+    button.button(hx-on:click="openModal('signupDialog')") Sign up

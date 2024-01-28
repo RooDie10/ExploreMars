@@ -1,0 +1,36 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet" href="css/style.css")
+    script(
+      src="https://unpkg.com/htmx.org@1.9.10",
+      integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC",
+      crossorigin="anonymous"
+    )
+    title Profile
+  body
+    include partials/header/header.pug
+
+  main.wrapper
+    h1.h1 Profile
+    p something about profile
+
+    h2 User info: 
+    div 
+      p 
+        strong Name: 
+        =user.name
+      p 
+        strong Email: 
+        =user.email
+    if level
+      p(id='level')
+        strong your level is: 
+        =level.data.type
+    button(hx-delete='/api/logout' class='button') Logout
+
+
+  script(src="js/main.js")
+  include partials/dialogs.pug

@@ -1,0 +1,10 @@
+ul 
+  each item in levels 
+    li(class='mx-auto my-4 p-4 rounded-xl bg-blue-100') 
+      h4 Type: #{item.data.type}
+      p Diescription: #{item.data.description}
+      p Price: #{item.data.price}
+      p Included:
+      ul 
+        each included in item.data.included
+          li #{included}

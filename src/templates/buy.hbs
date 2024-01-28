@@ -1,6 +1,0 @@
-{{#if isUserAuth}}
-  <button class='button' hx-on:click="openModal('buyDialog')">buy</button>
-{{else}}
-  <button hx-on:click="openModal('signinDialog')" class='button'>Sign in</button>
-  <p>to buy you need to be signed in </p>
-{{/if}}

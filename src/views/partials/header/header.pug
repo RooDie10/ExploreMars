@@ -1,0 +1,10 @@
+header.header
+  div 
+    a(class="font-bold text-xl" href="/") Exploring Mars
+    nav 
+      ul
+        li
+          a.link(href="/levels") Levels
+
+  div(hx-trigger="reload-user from:body" hx-get="/views/header" hx-swap="innerHTML" hx-target="this")
+    include header_sign.pug

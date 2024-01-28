@@ -1,0 +1,70 @@
+dialog(id='signinDialog' class='dialog relative')
+  a(hx-on:click="closeModal('signinDialog')" class=" absolute right-6 w-4 leading-4 text-center p-1") x
+  form(hx-post='/api/signin'
+    hx-swap='none'
+    hx-indicator='#signinMessage'
+    hx-disabled-elt='#signinButton'
+    id='signinForm'
+    class='flex flex-col gap-4 items-center')
+    h3(class='text-center font-bold text-xl mt-4') Sign in
+    div 
+      label(for='SigninEmail' class='block self-start') Email
+      input(class='input'
+        id='SigninEmail'
+        name='email'
+        type='email'
+        autocomplete='email'
+        required)
+    div 
+      label(for='SigninPassword' class='block self-start') Password
+      input(class='input'
+        id='SigninPassword'
+        name='password'
+        type='password'
+        autocomplete='current-password'
+        required)
+    button(id="signinButton" class='button w-2/3 my-0' type='submit') Submit
+    a(class='link cursor-pointer'
+      hx-on:click="openModal('signupDialog'); closeModal('signinDialog')") Sign up
+
+    p(id='signinMessage' class='htmx-indicator') Loading
+
+dialog(id='signupDialog' class='dialog relative')
+  a(hx-on:click="closeModal('signupDialog')" class=" absolute right-6 w-4 leading-4 text-center p-1") x
+  form(hx-post='/api/signup'
+    hx-swap='none'
+    hx-indicator='#signupMessage'
+    hx-disabled-elt='#signupButton'
+    id='signupForm'
+    class='flex flex-col gap-4 items-center')
+    h3(class='text-center font-bold text-xl mt-4') Sign up
+    div 
+      label(for='SignupName' class='block self-start') Name
+      input(class='input'
+        id='SignupName'
+        name='name'
+        type='text'
+        autocomplete='name'
+        required)
+    div 
+      label(for='SignupEmail' class='block self-start') Email
+      input(class='input'
+        id='SignupEmail'
+        name='email'
+        type='email'
+        autocomplete='email'
+        required)
+    div 
+      label(for='SignupPassword' class='block self-start') Password
+      input(class='input'
+        id='SignupPassword'
+        name='password'
+        type='password'
+        autocomplete='new-password'
+        required)
+    button(id="signupButton" class='button w-2/3 my-0' type='submit') Submit
+    a(class='link cursor-pointer'
+      hx-on:click="openModal('signinDialog'); closeModal('signupDialog')") Sign in
+    p(id='signupMessage' class='htmx-indicator') Loading
+
+script(src='/js/dialogs.js')

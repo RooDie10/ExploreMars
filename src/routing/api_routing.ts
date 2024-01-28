@@ -27,7 +27,7 @@ export const apiRouter = () => {
       email: req.body.email,
       password: req.body.password
     })
-
+    
     if (!user.status) {
       switch (user.field) {
         case 'email':
@@ -86,7 +86,10 @@ export const apiRouter = () => {
     const userId = req.session.user.id
     const selectedLevelId = req.body.selectedLevelId
     const result = await db.buyLevel(userId, selectedLevelId)
-
+    const user = req.session.user
+    user.level = selectedLevelId
+    modifySession(req, user)
+    
     res.json({ error: false })
   })
   //

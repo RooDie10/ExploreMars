@@ -1,0 +1,13 @@
+dialog(class="dialog" id="buyDialog")
+  a(class='absolute right-4 w-4 leading-4 text-center p-1' hx-on:click="closeModal('buyDialog')") 
+
+  form(hx-post='api/buy' hx-swap='none' hx-indicator='#buyMessage' hx-disabled-elt='#buyButton' id='buyForm' class='flex flex-col gap-4')
+    h2(class='text-xl font-bold mt-4') Buy tour 
+    div 
+      label(class='block' for='levelSelect') Select level
+      select(class='w-full p-2 rounded-lg bg-blue-200' name='selectedLevelId' id='levelSelect')
+        each item in levels
+          option(value=item.id) #{item.data.type} 
+    button(id='buyButton' class='button' type='submit') buy
+    p(id='buyMessage' class='htmx-indicator') Loading
+script( src='js/buy_dialog.js')
