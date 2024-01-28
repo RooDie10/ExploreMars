@@ -6,6 +6,8 @@ import { apiRouter } from './routing/api_routing'
 
 const app = express()
 
+const port = process.env.PORT || 3000
+
 app.set('view engine', 'pug')
 app.set('views', './src/views')
 
@@ -25,6 +27,8 @@ app.use('/', mainRouter())
 app.use('/views', viewsRouter())
 app.use('/api', apiRouter())
 
-app.listen(3000, () => {
-  console.log('Example app listening on port 3000!')
+if(!process.env.PORT) app.listen(+port, '0.0.0.0', () => {})
+else app.listen(port, () => {
+  console.log(`localhost:${port}`);
+  
 })
