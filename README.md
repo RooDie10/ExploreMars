@@ -1,2 +1,2 @@
-this will be web app for mars expedition
-using htmx + tailwind as frontend, typescript + nodejs + express as backend, handlebars as temlating language, firestore database as database
+this will be ssr website for mars expedition
+using htmx + tailwind as frontend, typescript + nodejs + express as backend, pug as templating language, firestore as database
