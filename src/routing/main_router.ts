@@ -5,12 +5,12 @@ import { firestoreConfig } from '../repo/config'
 import { Prop } from '../types/api'
 
 const checkUser = (req: Request) => {
-  if (req.session.user) return true
+  if (req.signedCookies.user !== undefined) return true
   return false
 }
 
 const makeProp = (req: Request): Prop => {
-  if (checkUser(req)) return { isUserAuth: true, userData: req.session.user }
+  if (checkUser(req)) return { isUserAuth: true, userData: req.signedCookies.user }
   else return { isUserAuth: false, userData: null }
 }
 
@@ -24,10 +24,10 @@ export const mainRouter = () => {
   })
 
   router.get('/profile', isUserAuth, async (req: Request, res: Response) => {
-    let user = await db.getUserById(req.session.user.id)
+    let user = await db.getUserById(req.signedCookies.user.id)
     let level = null
-    if (req.session.user.level)
-      level = await db.getLevels(req.session.user.level)
+    if (req.signedCookies.user.level)
+      level = await db.getLevels(req.signedCookies.user.level)
     let prop = makeProp(req)
 
     ;(prop.user = user), (prop.level = level)

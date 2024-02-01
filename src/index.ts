@@ -1,10 +1,10 @@
 import express from 'express'
-import session from 'express-session'
+import cookieParser from 'cookie-parser'
 import { mainRouter } from './routing/main_router'
 import { viewsRouter } from './routing/veiws_router'
 import { apiRouter } from './routing/api_router'
 import { adminRouter } from './routing/admin_router'
-import { isUserAdmin } from './routing/middlewares/middlewares'
+// import { isUserAdmin } from './routing/middlewares/middlewares'
 
 const app = express()
 
@@ -13,20 +13,14 @@ const port = process.env.PORT || 3000
 app.set('view engine', 'pug')
 app.set('views', './src/views')
 
-app.use(
-  session({
-    resave: false,
-    saveUninitialized: false,
-    secret: 'secret'
-  })
-)
+app.use(cookieParser('super secret string omg'))
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(express.static('public'))
 
 app.use('/', mainRouter())
-app.use('/admin', isUserAdmin)
+// app.use('/admin', isUserAdmin)
 app.use('/admin', adminRouter())
 app.use('/views', viewsRouter())
 app.use('/api', apiRouter())

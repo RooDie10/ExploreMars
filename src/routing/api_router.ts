@@ -2,22 +2,6 @@ import express, { Request, Response } from 'express'
 import { FirestoreDB } from '../repo/firestore'
 import { firestoreConfig } from '../repo/config'
 
-declare module 'express-session' {
-  export interface SessionData {
-    user: { [key: string]: any } | any
-  }
-}
-
-const modifySession = (req: Request, data: {} | null) => {
-  req.session.regenerate((err) => {
-    if (err) throw Error(err)
-  })
-  req.session.user = data
-  req.session.save((err) => {
-    if (err) throw Error(err)
-  })
-}
-
 export const apiRouter = () => {
   const router = express.Router()
   const db = new FirestoreDB(firestoreConfig)
@@ -27,7 +11,7 @@ export const apiRouter = () => {
       email: req.body.email,
       password: req.body.password
     })
-    
+
     if (!user.status) {
       switch (user.field) {
         case 'email':
@@ -46,7 +30,11 @@ export const apiRouter = () => {
       }
     }
 
-    modifySession(req, user.data)
+    res.cookie('user', user.data, {
+      maxAge: 900000,
+      signed: true,
+      httpOnly: true
+    })
     res.set('HX-Trigger', 'reload-user').json({ error: false })
   })
 
@@ -69,33 +57,41 @@ export const apiRouter = () => {
     let userName
     if (newUser.userData) userName = newUser.userData.name
     const result = { id: newUser.id, name: userName, level: null }
-    modifySession(req, result)
+    res.cookie('user', result, {
+      maxAge: 900000,
+      signed: true,
+      httpOnly: true
+    })
 
     res.set('HX-Trigger', 'reload-user').json({ error: false })
   })
 
   // wip
   router.post('/buy', async (req: Request, res: Response) => {
-    if (req.session.user == null)
+    if (req.signedCookies.user === undefined)
       return res.json({
         error: true,
         field: null,
         message: 'You need to sign in first'
       })
 
-    const userId = req.session.user.id
+    const userId = req.signedCookies.user.id
     const selectedLevelId = req.body.selectedLevelId
     const result = await db.buyLevel(userId, selectedLevelId)
-    const user = req.session.user
+    const user = req.signedCookies.user
     user.level = selectedLevelId
-    modifySession(req, user)
-    
+    res.cookie('user', user, {
+      maxAge: 900000,
+      signed: true,
+      httpOnly: true
+    })
+
     res.json({ error: false })
   })
   //
 
   router.delete('/logout', (req: Request, res: Response) => {
-    modifySession(req, null)
+    res.clearCookie('user')
 
     const ref = req.get('referer')
 
