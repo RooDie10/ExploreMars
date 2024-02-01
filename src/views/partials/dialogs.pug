@@ -67,4 +67,9 @@ dialog(id='signupDialog' class='dialog relative')
       hx-on:click="openModal('signinDialog'); closeModal('signupDialog')") Sign in
     p(id='signupMessage' class='htmx-indicator') Loading
 
+//- dialog(open id='cookieDialog' class='absolute bottom-0 p-6 w-2/3 mx-auto flex justify-between items-center')
+//-   p(class="font-bold text-xl") we use cookies, you cannot deny it (yet)
+//-   form(method="dialog")
+//-     button.button(type="submit") accept
+
 script(src='/js/dialogs.js')

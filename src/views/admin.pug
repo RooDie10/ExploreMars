@@ -14,9 +14,11 @@ html(lang="en")
     include partials/header/header.pug
 
     main.wrapper
-      h1.h1 Main Page
-      p something about mars
-      a.link(href="/levels") click to see more
+      h1.h1 Admin page
+      a.link(hx-get="api/users/" hx-push-url="admin/users/" hx-target="#content" hx-swap="innerHTML") Users 
+
+      section#content 
+          
 
     script(src="js/main.js")
     include partials/dialogs.pug

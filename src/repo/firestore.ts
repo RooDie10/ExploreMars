@@ -112,7 +112,7 @@ export class FirestoreDB {
 
   async buyLevel(userId: string, levelId: string) {
     const userRef = doc(this.db, 'users', userId)
-    
+
     await updateDoc(userRef, {
       level: levelId
     })
@@ -123,5 +123,12 @@ export class FirestoreDB {
     const docRef = doc(this.db, 'users', id)
     const docSnap = await getDoc(docRef)
     return docSnap.data()
+  }
+
+  async getUsers() {
+    const usersSnap = await getDocs(collection(this.db, 'users'))
+    let data:any = []
+    usersSnap.forEach((doc) => data.push(doc.data()))    
+    return data
   }
 }

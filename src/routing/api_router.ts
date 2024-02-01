@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express'
 import { FirestoreDB } from '../repo/firestore'
 import { firestoreConfig } from '../repo/config'
+import { makeProp } from './main_router'
 
 export const apiRouter = () => {
   const router = express.Router()
@@ -99,6 +100,13 @@ export const apiRouter = () => {
       return res.set('HX-Redirect', '/').sendStatus(200)
 
     res.set('HX-Trigger', 'reload-user').sendStatus(200)
+  })
+
+  router.get('/users', async (req: Request, res: Response) => {
+    const prop = makeProp(req)
+    const users = await db.getUsers()
+    prop.users = users
+    res.render('partials/admin/users', prop)
   })
 
   return router

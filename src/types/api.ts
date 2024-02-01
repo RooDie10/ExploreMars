@@ -18,4 +18,6 @@ export type Prop = {
   user?: any
   level?: any
   levels?: any
+  state?: any
+  users?: any
 }
