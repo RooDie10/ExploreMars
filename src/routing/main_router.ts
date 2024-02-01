@@ -1,17 +1,25 @@
 import express, { Request, Response } from 'express'
-import { isUserAuth } from './middlewares/middlewares'
+import { isUserAuth, isUserAdmin } from './middlewares/middlewares'
 import { FirestoreDB } from '../repo/firestore'
 import { firestoreConfig } from '../repo/config'
 import { Prop } from '../types/api'
 
-const checkUser = (req: Request) => {
+export const checkUser = (req: Request) => {
   if (req.signedCookies.user !== undefined) return true
   return false
 }
 
-const makeProp = (req: Request): Prop => {
-  if (checkUser(req)) return { isUserAuth: true, userData: req.signedCookies.user }
-  else return { isUserAuth: false, userData: null }
+export const makeProp = (req: Request): Prop => {
+  if (checkUser(req))
+    return {
+      isUserAuth: true,
+      userData: req.signedCookies.user
+    }
+
+  return {
+    isUserAuth: false,
+    userData: null
+  }
 }
 
 export const mainRouter = () => {
@@ -26,20 +34,23 @@ export const mainRouter = () => {
   router.get('/profile', isUserAuth, async (req: Request, res: Response) => {
     let user = await db.getUserById(req.signedCookies.user.id)
     let level = null
-    if (req.signedCookies.user.level)
-      level = await db.getLevels(req.signedCookies.user.level)
+
     let prop = makeProp(req)
 
-    ;(prop.user = user), (prop.level = level)
+    if (req.signedCookies.user.level)
+      level = await db.getLevels(req.signedCookies.user.level)
+
+    prop.user = user
+    prop.level = level
     res.render('profile', prop)
   })
 
   router.get('/levels', async (req: Request, res: Response) => {
     let levels = await db.getLevels()
     let prop = makeProp(req)
-    
+
     prop.levels = levels
-    
+
     res.render('levels', prop)
   })
 

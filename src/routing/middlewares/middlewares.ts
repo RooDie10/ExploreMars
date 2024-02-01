@@ -5,10 +5,10 @@ export const isUserAuth = (req: Request, res: Response, next: NextFunction) => {
   res.redirect('back')
 }
 
-// export const isUserAdmin = (req: Request, res: Response, next: NextFunction) => {
-//   console.log(req.user.session);
+export const isUserAdmin = (req: Request, res: Response, next: NextFunction) => {
+  console.log(req.signedCookies.user);
   
-//   if('admin' in req.session.user) return next()
-//   res.redirect('back')
+  if('admin' in req.signedCookies.user) return next()
+  res.redirect('back')
   
-// } 
+} 

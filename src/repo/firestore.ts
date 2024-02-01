@@ -53,7 +53,8 @@ export class FirestoreDB {
     const response = {
       id: id,
       name: user.name,
-      level: null
+      level: null,
+      admin: user.admin
     }
 
     if (user.level) response.level = user.level

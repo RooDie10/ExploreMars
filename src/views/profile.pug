@@ -13,24 +13,27 @@ html(lang="en")
   body
     include partials/header/header.pug
 
-  main.wrapper
-    h1.h1 Profile
-    p something about profile
+    main.wrapper
+      h1.h1 Profile
+      p something about profile
 
-    h2 User info: 
-    div 
-      p 
-        strong Name: 
-        =user.name
-      p 
-        strong Email: 
-        =user.email
-    if level
-      p(id='level')
-        strong your level is: 
-        =level.data.type
-    button(hx-delete='/api/logout' class='button') Logout
+      h2 User info: 
+      div 
+        p 
+          strong Name: 
+          =user.name
+        p 
+          strong Email: 
+          =user.email
+      if level
+        p(id='level')
+          strong your level is: 
+          =level.data.type
+
+      if user.admin 
+        a.button(class="block w-fit mb-2" href="/admin") Admin panel 
+      button(hx-delete='/api/logout' class='button') Logout
 
 
-  script(src="js/main.js")
-  include partials/dialogs.pug
+    script(src="js/main.js")
+    include partials/dialogs.pug
