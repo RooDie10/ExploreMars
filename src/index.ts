@@ -2,7 +2,9 @@ import express from 'express'
 import session from 'express-session'
 import { mainRouter } from './routing/main_router'
 import { viewsRouter } from './routing/veiws_router'
-import { apiRouter } from './routing/api_routing'
+import { apiRouter } from './routing/api_router'
+import { adminRouter } from './routing/admin_router'
+import { isUserAdmin } from './routing/middlewares/middlewares'
 
 const app = express()
 
@@ -24,6 +26,8 @@ app.use(express.json())
 app.use(express.static('public'))
 
 app.use('/', mainRouter())
+app.use('/admin', isUserAdmin)
+app.use('/admin', adminRouter())
 app.use('/views', viewsRouter())
 app.use('/api', apiRouter())
 

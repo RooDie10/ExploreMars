@@ -1,4 +1,3 @@
-import { isUserAuth } from '../routing/middlewares/middlewares'
 export type User = {
   name?: string
   email: string
