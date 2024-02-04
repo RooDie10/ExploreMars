@@ -102,12 +102,5 @@ export const apiRouter = () => {
     res.set('HX-Trigger', 'reload-user').sendStatus(200)
   })
 
-  router.get('/users', async (req: Request, res: Response) => {
-    const prop = makeProp(req)
-    const users = await db.getUsers()
-    prop.users = users
-    res.render('partials/admin/users', prop)
-  })
-
   return router
 }

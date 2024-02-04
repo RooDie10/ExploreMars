@@ -33,4 +33,7 @@
   .dialog {
     @apply p-4 rounded-xl;
   }
+  html {
+    scrollbar-gutter: stable !important;
+  }
 }

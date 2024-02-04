@@ -3,7 +3,7 @@ html(lang="en")
   head
     meta(charset="UTF-8")
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
-    link(rel="stylesheet" href="css/style.css")
+    link(rel="stylesheet" href="/css/style.css")
     script(
       src="https://unpkg.com/htmx.org@1.9.10",
       integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC",
@@ -15,10 +15,23 @@ html(lang="en")
 
     main.wrapper
       h1.h1 Admin page
-      a.link(hx-get="api/users/" hx-push-url="admin/users/" hx-target="#content" hx-swap="innerHTML") Users 
+      ul(class="flex gap-2") 
+        li 
+          a.link(href="/admin" hx-get="/admin/" hx-select="#content" hx-push-url="/admin/" hx-target="#content" hx-swap="innerHTML") Main
+        li 
+          a.link(href="/admin/users" hx-get="/admin/users/" hx-select="#content" hx-push-url="/admin/users/" hx-target="#content" hx-swap="innerHTML") Users
+        li 
+          a.link(href="/admin/orders" hx-get="/admin/orders/" hx-select="#content" hx-push-url="/admin/orders/" hx-target="#content" hx-swap="innerHTML") Orders
 
-      section#content 
-          
 
-    script(src="js/main.js")
+      section#content
+        case state 
+          when 0
+            h2.h2.mt-4 Main section 
+          when 1
+            include partials/admin/users.pug 
+          when 2 
+            include partials/admin/orders.pug        
+
+    script(src="/js/main.js")
     include partials/dialogs.pug

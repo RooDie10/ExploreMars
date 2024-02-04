@@ -127,8 +127,20 @@ export class FirestoreDB {
 
   async getUsers() {
     const usersSnap = await getDocs(collection(this.db, 'users'))
-    let data:any = []
-    usersSnap.forEach((doc) => data.push(doc.data()))    
+    let data: any = []
+    usersSnap.forEach((doc) => data.push(doc.data()))
     return data
+  }
+
+  async getUsersByLevel(levelId?: string) {
+    let q
+    if (!levelId)
+      q = query(collection(this.db, 'users'), where('level', '!=', null))
+    else q = query(collection(this.db, 'users'), where('level', '==', levelId))
+
+    const usersSnap = await getDocs(q)
+    let users: any[] = []
+    usersSnap.forEach((item) => users.push(item.data()))
+    return users
   }
 }

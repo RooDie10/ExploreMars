@@ -625,6 +625,10 @@ video {
   padding: 1rem;
 }
 
+html {
+  scrollbar-gutter: stable !important;
+}
+
 .visible {
   visibility: visible;
 }
