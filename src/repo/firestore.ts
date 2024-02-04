@@ -88,24 +88,21 @@ export class FirestoreDB {
     return null
   }
 
-  async getLevels(id?: string) {
-    let docRef
-    let docSnap
-    let result
+  async getLevels() {
+    const docRef = query(collection(this.db, 'levels'))
+    const docSnap = await getDocs(docRef)
+    const result = docSnap.docs.map((doc) => {
+      const data = doc.data()
+      const id = doc.id
+      return { id, data }
+    })
+    return result
+  }
 
-    if (id) {
-      docRef = doc(this.db, 'levels', id)
-      docSnap = await getDoc(docRef)
-      result = { id: docSnap.id, data: docSnap.data() }
-    } else {
-      docRef = query(collection(this.db, 'levels'))
-      docSnap = await getDocs(docRef)
-      result = docSnap.docs.map((doc) => {
-        const data = doc.data()
-        const id = doc.id
-        return { id, data }
-      })
-    }
+  async getLevel(id: string): Promise<{}> {
+    const docRef = doc(this.db, 'levels', id)
+    const docSnap = await getDoc(docRef)
+    const result = { id: docSnap.id, data: docSnap.data() }
 
     return result
   }
@@ -127,8 +124,16 @@ export class FirestoreDB {
 
   async getUsers() {
     const usersSnap = await getDocs(collection(this.db, 'users'))
+    const levels = await this.getLevels()
     let data: any = []
-    usersSnap.forEach((doc) => data.push(doc.data()))
+    usersSnap.forEach((doc) => {
+      let user = doc.data()
+      if (user.level) {
+        const levelType = levels.filter((level) => level.id === user.level)
+        user.level = levelType[0].data.type
+      }
+      data.push(user)
+    })
     return data
   }
 
@@ -139,8 +144,19 @@ export class FirestoreDB {
     else q = query(collection(this.db, 'users'), where('level', '==', levelId))
 
     const usersSnap = await getDocs(q)
+
     let users: any[] = []
-    usersSnap.forEach((item) => users.push(item.data()))
+    const levels = await this.getLevels()
+    usersSnap.forEach((item) => {
+      let user = item.data()
+      if (user.level) {
+        const levelType = levels.filter((level) => level.id === user.level)
+        user.level = levelType[0].data.type
+      }
+      users.push(user)
+    })
     return users
   }
 }
+
+class UsersFirestoreDB extends FirestoreDB {}

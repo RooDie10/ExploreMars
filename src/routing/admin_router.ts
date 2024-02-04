@@ -23,8 +23,16 @@ export const adminRouter = () => {
 
   router.get('/orders', async (req: Request, res: Response) => {
     let prop = makeProp(req)
-    const users = await db.getUsersByLevel()
+
+    const levels = await db.getLevels()
+    prop.levels = levels
+    
+    let users
+    if (req.query.levelId)
+      users = await db.getUsersByLevel(req.query.levelId.toString())
+    else users = await db.getUsersByLevel()
     prop.users = users
+
     prop.state = 2
     res.render('admin', prop)
   })

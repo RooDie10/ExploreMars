@@ -38,7 +38,7 @@ export const mainRouter = () => {
     let prop = makeProp(req)
 
     if (req.signedCookies.user.level)
-      level = await db.getLevels(req.signedCookies.user.level)
+      level = await db.getLevel(req.signedCookies.user.level)
 
     prop.user = user
     prop.level = level

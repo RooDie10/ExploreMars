@@ -5,7 +5,7 @@ dialog(class="dialog" id="buyDialog")
     h2(class='text-xl font-bold mt-4') Buy tour 
     div 
       label(class='block' for='levelSelect') Select level
-      select(class='w-full p-2 rounded-lg bg-blue-200' name='selectedLevelId' id='levelSelect')
+      select(class='select' name='selectedLevelId' id='levelSelect')
         each item in levels
           option(value=item.id) #{item.data.type} 
     button(id='buyButton' class='button' type='submit') buy

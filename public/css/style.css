@@ -629,6 +629,14 @@ html {
   scrollbar-gutter: stable !important;
 }
 
+.select {
+  width: 100%;
+  border-radius: 0.5rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(191 219 254 / var(--tw-bg-opacity));
+  padding: 0.5rem;
+}
+
 .visible {
   visibility: visible;
 }
@@ -748,6 +756,10 @@ html {
   width: 100%;
 }
 
+.w-auto {
+  width: auto;
+}
+
 .border-collapse {
   border-collapse: collapse;
 }
@@ -830,6 +842,11 @@ html {
 .bg-blue-600 {
   --tw-bg-opacity: 1;
   background-color: rgb(37 99 235 / var(--tw-bg-opacity));
+}
+
+.bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
 .p-1 {

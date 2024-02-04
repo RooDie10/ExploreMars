@@ -36,4 +36,7 @@
   html {
     scrollbar-gutter: stable !important;
   }
+  .select {
+    @apply w-full p-2 rounded-lg bg-blue-200;
+  }
 }
