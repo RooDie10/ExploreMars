@@ -1,7 +1,6 @@
 import express, { Request, Response } from 'express'
 import { FirestoreDB } from '../repo/firestore'
 import { firestoreConfig } from '../repo/config'
-import { makeProp } from './main_router'
 
 export const apiRouter = () => {
   const router = express.Router()
