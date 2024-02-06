@@ -1,13 +1,12 @@
 import express, { Request, Response } from 'express'
-import { FirestoreDB } from '../repo/firestore'
+import { UsersFirestoreDB } from '../repo/firestore'
 import { firestoreConfig } from '../repo/config'
 
 export const apiRouter = () => {
   const router = express.Router()
-  const db = new FirestoreDB(firestoreConfig)
-
+  const userDb = new UsersFirestoreDB(firestoreConfig)
   router.post('/signin', async (req: Request, res: Response) => {
-    const user = await db.findUser({
+    const user = await userDb.findUser({
       email: req.body.email,
       password: req.body.password
     })
@@ -45,7 +44,7 @@ export const apiRouter = () => {
       password: req.body.password
     }
 
-    const newUser = await db.addUser(user)
+    const newUser = await userDb.addUser(user)
 
     if (newUser === null) {
       return res.json({
@@ -77,7 +76,7 @@ export const apiRouter = () => {
 
     const userId = req.signedCookies.user.id
     const selectedLevelId = req.body.selectedLevelId
-    const result = await db.buyLevel(userId, selectedLevelId)
+    const result = await userDb.buyLevel(userId, selectedLevelId)
     const user = req.signedCookies.user
     user.level = selectedLevelId
     res.cookie('user', user, {

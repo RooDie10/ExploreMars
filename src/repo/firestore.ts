@@ -12,15 +12,112 @@ import bcrypt from 'bcryptjs'
 import { Status, User } from '../types/api'
 
 export class FirestoreDB {
-  private bc = bcrypt
-  private config: object
-  private app: FirebaseApp
-  private db: Firestore
+  public bc = bcrypt
+  public config: object
+  public app: FirebaseApp
+  public db: Firestore
 
   constructor(config: object) {
     this.config = config
     this.app = initializeApp(this.config)
     this.db = getFirestore(this.app)
+  }
+
+  async getLevels() {
+    const docRef = query(collection(this.db, 'levels'))
+    const docSnap = await getDocs(docRef)
+    const result = docSnap.docs.map((doc) => {
+      const data = doc.data()
+      const id = doc.id
+      return { id, data }
+    })
+    return result
+  }
+
+  async getLevel(id: string): Promise<{}> {
+    const docRef = doc(this.db, 'levels', id)
+    const docSnap = await getDoc(docRef)
+    const result = { id: docSnap.id, data: docSnap.data() }
+
+    return result
+  }
+
+  async buyLevel(userId: string, levelId: string) {
+    const userRef = doc(this.db, 'users', userId)
+
+    await updateDoc(userRef, {
+      level: levelId
+    })
+    return true
+  }
+}
+
+export class UsersFirestoreDB extends FirestoreDB {
+  constructor(config: object) {
+    super(config)
+  }
+
+  async getUsersByLevel(levelId?: string) {
+    let q
+    if (!levelId)
+      q = query(collection(this.db, 'users'), where('level', '!=', null))
+    else q = query(collection(this.db, 'users'), where('level', '==', levelId))
+
+    const usersSnap = await getDocs(q)
+
+    let users: any[] = []
+    const levels = await this.getLevels()
+    usersSnap.forEach((item) => {
+      let user = item.data()
+      if (user.level) {
+        const levelType = levels.filter((level) => level.id === user.level)
+        user.level = levelType[0].data.type
+      }
+      users.push(user)
+    })
+    return users
+  }
+
+  async getUsers() {
+    const usersSnap = await getDocs(collection(this.db, 'users'))
+    const levels = await this.getLevels()
+    let data: any = []
+    usersSnap.forEach((doc) => {
+      let user = doc.data()
+      if (user.level) {
+        const levelType = levels.filter((level) => level.id === user.level)
+        user.level = levelType[0].data.type
+      }
+      data.push(user)
+    })
+    return data
+  }
+
+  async getUserById(id: string) {
+    const docRef = doc(this.db, 'users', id)
+    const docSnap = await getDoc(docRef)
+    return docSnap.data()
+  }
+
+  async addUser(userData: User) {
+    const q = query(
+      collection(this.db, 'users'),
+      where('email', '==', userData.email)
+    )
+
+    const querySnapshot = await getDocs(q)
+
+    if (querySnapshot.empty) {
+      const password = await this.bc.hash(userData.password, 10)
+      const newUserRef = await addDoc(collection(this.db, 'users'), {
+        name: userData.name,
+        email: userData.email,
+        password: password
+      })
+      const newUserSnap = await getDoc(newUserRef)
+      return { id: newUserSnap.id, userData: newUserSnap.data() }
+    }
+    return null
   }
 
   async findUser(userData: User): Promise<Status> {
@@ -66,97 +163,4 @@ export class FirestoreDB {
       data: response
     }
   }
-
-  async addUser(userData: User) {
-    const q = query(
-      collection(this.db, 'users'),
-      where('email', '==', userData.email)
-    )
-
-    const querySnapshot = await getDocs(q)
-
-    if (querySnapshot.empty) {
-      const password = await this.bc.hash(userData.password, 10)
-      const newUserRef = await addDoc(collection(this.db, 'users'), {
-        name: userData.name,
-        email: userData.email,
-        password: password
-      })
-      const newUserSnap = await getDoc(newUserRef)
-      return { id: newUserSnap.id, userData: newUserSnap.data() }
-    }
-    return null
-  }
-
-  async getLevels() {
-    const docRef = query(collection(this.db, 'levels'))
-    const docSnap = await getDocs(docRef)
-    const result = docSnap.docs.map((doc) => {
-      const data = doc.data()
-      const id = doc.id
-      return { id, data }
-    })
-    return result
-  }
-
-  async getLevel(id: string): Promise<{}> {
-    const docRef = doc(this.db, 'levels', id)
-    const docSnap = await getDoc(docRef)
-    const result = { id: docSnap.id, data: docSnap.data() }
-
-    return result
-  }
-
-  async buyLevel(userId: string, levelId: string) {
-    const userRef = doc(this.db, 'users', userId)
-
-    await updateDoc(userRef, {
-      level: levelId
-    })
-    return true
-  }
-
-  async getUserById(id: string) {
-    const docRef = doc(this.db, 'users', id)
-    const docSnap = await getDoc(docRef)
-    return docSnap.data()
-  }
-
-  async getUsers() {
-    const usersSnap = await getDocs(collection(this.db, 'users'))
-    const levels = await this.getLevels()
-    let data: any = []
-    usersSnap.forEach((doc) => {
-      let user = doc.data()
-      if (user.level) {
-        const levelType = levels.filter((level) => level.id === user.level)
-        user.level = levelType[0].data.type
-      }
-      data.push(user)
-    })
-    return data
-  }
-
-  async getUsersByLevel(levelId?: string) {
-    let q
-    if (!levelId)
-      q = query(collection(this.db, 'users'), where('level', '!=', null))
-    else q = query(collection(this.db, 'users'), where('level', '==', levelId))
-
-    const usersSnap = await getDocs(q)
-
-    let users: any[] = []
-    const levels = await this.getLevels()
-    usersSnap.forEach((item) => {
-      let user = item.data()
-      if (user.level) {
-        const levelType = levels.filter((level) => level.id === user.level)
-        user.level = levelType[0].data.type
-      }
-      users.push(user)
-    })
-    return users
-  }
 }
-
-class UsersFirestoreDB extends FirestoreDB {}
