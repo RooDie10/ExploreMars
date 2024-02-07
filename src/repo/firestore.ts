@@ -1,5 +1,5 @@
 import { initializeApp, FirebaseApp } from 'firebase/app'
-import { Firestore, doc, getDoc, updateDoc } from 'firebase/firestore'
+import { Firestore, deleteDoc, doc, getDoc, updateDoc } from 'firebase/firestore'
 import {
   getFirestore,
   collection,
@@ -9,7 +9,7 @@ import {
   where
 } from 'firebase/firestore'
 import bcrypt from 'bcryptjs'
-import { Status, User } from '../types/api'
+import { LevelData, Status, User } from '../types/api'
 
 export class FirestoreDB {
   public bc = bcrypt
@@ -49,6 +49,18 @@ export class FirestoreDB {
       level: levelId
     })
     return true
+  }
+  
+  async deleteLevel(levelId: string) {
+    const levelRef = await doc(this.db, 'levels', levelId)
+    await deleteDoc(levelRef)
+    return true
+  }
+
+  // wip 
+  async addLevel(levelData: LevelData) {
+    const newLevelRef = await addDoc(collection(this.db, 'levels'), levelData)
+    return true 
   }
 }
 

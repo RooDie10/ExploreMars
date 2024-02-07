@@ -38,5 +38,14 @@ export const adminRouter = () => {
     res.render('admin', prop)
   })
 
+  router.get('/levels', async (req: Request, res:Response) => {
+    let prop = makeProp(req)
+    
+    const levels = await db.getLevels()
+    prop.levels = levels
+    
+    prop.state = 3
+    res.render('admin', prop)
+  })
   return router
 }

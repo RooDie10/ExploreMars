@@ -1,0 +1,20 @@
+h2.h2.mt-4 Levels 
+
+a.link(hx-on:click="openModal('newLevelDialog')") Add Level 
+
+ul#levels(hx-trigger="reload-levels from:body" hx-swap="outerHTML" hx-select="#levels" hx-get="/admin/levels")
+  each level in levels 
+    li(class="p-2 bg-blue-100 rounded-xl my-4") 
+      p(class="font-bold") #{level.data.type}
+      p
+        strong description: 
+        =level.data.description 
+      p
+        strong included:
+      ul(class="list-disc ml-4") 
+        each item in level.data.included
+          li=item
+      p
+        strong price: 
+        =level.data.price
+      a(class="text-red-600 font-bold underline cursor-pointer" hx-confirm="Are you sure you want to delete this level? This action is irreversible." hx-delete='/api/level/' + level.id) Delete

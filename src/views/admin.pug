@@ -22,6 +22,8 @@ html(lang="en")
           a.link(href="/admin/users" hx-get="/admin/users/" hx-select="#content" hx-push-url="/admin/users/" hx-target="#content" hx-swap="innerHTML") Users
         li 
           a.link(href="/admin/orders" hx-get="/admin/orders/" hx-select="#content" hx-push-url="/admin/orders/" hx-target="#content" hx-swap="innerHTML") Orders
+        li 
+          a.link(href="/admin/levels" hx-get="/admin/levels/" hx-select="#content" hx-push-url="/admin/levels/" hx-target="#content" hx-swap="innerHTML") Levels 
 
 
       section#content
@@ -32,6 +34,56 @@ html(lang="en")
             include partials/admin/users.pug 
           when 2 
             include partials/admin/orders.pug        
+          when 3 
+            include partials/admin/levels.pug
 
-    script(src="/js/main.js")
-    include partials/dialogs.pug
+
+  dialog(id='newLevelDialog' class='dialog relative w-3/5')
+    a(hx-on:click="closeModal('newLevelDialog')" class=" absolute right-6 w-4 leading-4 text-center p-1") x
+    form(hx-post='/api/level'
+      hx-swap='none'
+      hx-indicator='#newLevelMessage'
+      hx-disabled-elt='#newLevelButton'
+      id='newLevelForm'
+      class='flex flex-col gap-4 items-center')
+      h3(class='text-center font-bold text-xl mt-4') Add level 
+      div(class="w-full") 
+        label(for='newLevelType' class='block self-start') Type
+        input(class='input'
+          id='newLevelType'
+          name='type'
+          type='text'
+          placeholder="gold"
+          required)
+      div(class="w-full")
+        label(for='newLevelDescription' class='block self-start') Description 
+        textarea(class='input w-full'
+          id='newLevelDescription'
+          name='description'
+          type='text'
+          placeholder="something about this level"
+          required)
+      div(class="w-full")
+        label(for='newLevelIncluded' class='block self-start') Included 
+        textarea(class='input w-full'
+          id='newLevelIncluded'
+          name='included'
+          type='text'
+          placeholder="thing; thing; thing"
+          required)
+      div(class="w-full")
+        label(for='newLevelPrice' class='block self-start') Price 
+        input(class='input'
+          id='newLevelPrice'
+          name='price'
+          type='number'
+          placeholder="300"
+          required)
+
+
+      button(id="newLevelButton" class='button w-2/3 my-0' type='submit') Submit
+
+      p(id='newLevelMessage' class='htmx-indicator') Loading
+  script(src="/js/main.js") 
+  script(src="/js/levels.js") 
+  include partials/dialogs.pug

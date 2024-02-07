@@ -21,3 +21,10 @@ export type Prop = {
   state?: any
   users?: any
 }
+
+export type LevelData = {
+  type: string
+  description: string
+  included: [string]
+  price: number
+}

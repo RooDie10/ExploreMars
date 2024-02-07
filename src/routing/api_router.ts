@@ -1,10 +1,12 @@
 import express, { Request, Response } from 'express'
-import { UsersFirestoreDB } from '../repo/firestore'
+import { FirestoreDB, UsersFirestoreDB } from '../repo/firestore'
 import { firestoreConfig } from '../repo/config'
 
 export const apiRouter = () => {
   const router = express.Router()
   const userDb = new UsersFirestoreDB(firestoreConfig)
+  const db = new FirestoreDB(firestoreConfig)
+
   router.post('/signin', async (req: Request, res: Response) => {
     const user = await userDb.findUser({
       email: req.body.email,
@@ -98,6 +100,24 @@ export const apiRouter = () => {
       return res.set('HX-Redirect', '/').sendStatus(200)
 
     res.set('HX-Trigger', 'reload-user').sendStatus(200)
+  })
+
+  router.delete('/level/:id', async (req: Request, res: Response) => {
+    await db.deleteLevel(req.params.id)
+    res.set('HX-Trigger', 'reload-levels').sendStatus(200)
+  })
+
+  router.post('/level', async (req: Request, res: Response) => {
+    const included = req.body.included.split('; ')
+    const levelData = {
+      type: req.body.type,
+      description: req.body.description,
+      included: included,
+      price: req.body.price
+    }
+    const result = await db.addLevel(levelData)
+    res.set('HX-Trigger', 'reload-levels').json({ error: false })
+    
   })
 
   return router
