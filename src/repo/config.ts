@@ -1,3 +1,7 @@
+import dotenv from 'dotenv'
+
+dotenv.config()
+
 export const firestoreConfig = {
   apiKey: process.env.APIKEY,
   authDomain: 'explore-mars-f3583.firebaseapp.com',
