@@ -1,5 +1,5 @@
 export const firestoreConfig = {
-  apiKey: 'AIzaSyBjVig8k0QT8GDPsjWmuYOS6BjL2euetPE',
+  apiKey: process.env.APIKEY,
   authDomain: 'explore-mars-f3583.firebaseapp.com',
   projectId: 'explore-mars-f3583',
   storageBucket: 'explore-mars-f3583.appspot.com',
