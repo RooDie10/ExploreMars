@@ -37,6 +37,7 @@ export class FirestoreDB {
   async getLevel(id: string): Promise<{}> {
     const docRef = doc(this.db, 'levels', id)
     const docSnap = await getDoc(docRef)
+    if(!docSnap.exists()) return false
     const result = { id: docSnap.id, data: docSnap.data() }
 
     return result

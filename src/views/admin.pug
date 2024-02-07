@@ -23,7 +23,7 @@ html(lang="en")
         li 
           a.link(href="/admin/orders" hx-get="/admin/orders/" hx-select="#content" hx-push-url="/admin/orders/" hx-target="#content" hx-swap="innerHTML") Orders
         li 
-          a.link(href="/admin/levels" hx-get="/admin/levels/" hx-select="#content" hx-push-url="/admin/levels/" hx-target="#content" hx-swap="innerHTML") Levels 
+          a.link(href="/admin/levels" hx-trigger="reload-levels from:body, click" hx-get="/admin/levels/" hx-select="#content" hx-push-url="/admin/levels/" hx-target="#content" hx-swap="innerHTML") Levels 
 
 
       section#content
@@ -36,6 +36,8 @@ html(lang="en")
             include partials/admin/orders.pug        
           when 3 
             include partials/admin/levels.pug
+          when 4
+            include partials/admin/level.pug
 
 
   dialog(id='newLevelDialog' class='dialog relative w-3/5')
