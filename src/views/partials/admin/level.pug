@@ -1,4 +1,4 @@
-div(class="p-2 bg-blue-100 rounded-xl my-4")
+div#level(class="p-2 bg-blue-100 rounded-xl my-4")
   a.link(href="/admin/levels" hx-get="/admin/levels/" hx-select="#content" hx-push-url="/admin/levels/" hx-target="#content" hx-swap="innerHTML") Back 
   h2.h2=level.data.type
   p
@@ -7,7 +7,10 @@ div(class="p-2 bg-blue-100 rounded-xl my-4")
   p
     strong price:  
     =level.data.price
+  p 
+    strong included: 
   ul(class="pl-4 list-disc")
     each item in level.data.included
       li=item
-  a(class="text-red-600 font-bold underline cursor-pointer" hx-confirm="Are you sure you want to delete this level? This action is irreversible." hx-delete='/api/level/' + level.id) Delete
+  a(class="text-red-600 font-bold underline cursor-pointer block" hx-swap="outerHTML" hx-target="this" hx-confirm="Are you sure you want to delete this level? This action is irreversible." hx-delete='/api/level/' + level.id) Delete
+  a(class="font-bold underline cursor-pointer block" hx-target="#level" hx-select="#level" hx-swap="outerHTML" hx-get='/admin/levels/' + level.id hx-vals='{"status": "edit"}') Edit

@@ -103,8 +103,9 @@ export const apiRouter = () => {
   })
 
   router.delete('/level/:id', async (req: Request, res: Response) => {
-    await db.deleteLevel(req.params.id)
-    res.set('HX-Trigger', 'reload-levels').sendStatus(200)
+    const result = await db.deleteLevel(req.params.id)
+    if (result) return res.set('HX-Trigger', 'reload-levels').sendStatus(200)
+    return res.send('<p class="font-bold text-red-600">You can\'t delete level that contains orders</p>')
   })
 
   router.post('/level', async (req: Request, res: Response) => {
@@ -117,7 +118,18 @@ export const apiRouter = () => {
     }
     const result = await db.addLevel(levelData)
     res.set('HX-Trigger', 'reload-levels').json({ error: false })
-    
+  })
+  
+  router.post('/level/:id', async (req:Request, res: Response) => {
+    const included = req.body.included.split('; ')
+    const levelData = {
+      type: req.body.type,
+      description: req.body.description,
+      included: included,
+      price: req.body.price
+    }
+    const result = await db.editLevel(levelData, req.params.id)
+    res.set('HX-Trigger', 'reload-level').sendStatus(201)
   })
 
   return router

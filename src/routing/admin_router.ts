@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express'
 import { makeProp } from './main_router'
-import { FirestoreDB, UsersFirestoreDB} from '../repo/firestore'
+import { FirestoreDB, UsersFirestoreDB } from '../repo/firestore'
 import { firestoreConfig } from '../repo/config'
 
 export const adminRouter = () => {
@@ -27,7 +27,7 @@ export const adminRouter = () => {
 
     const levels = await db.getLevels()
     prop.levels = levels
-    
+
     let users
     if (req.query.levelId)
       users = await usersDb.getUsersByLevel(req.query.levelId.toString())
@@ -38,26 +38,33 @@ export const adminRouter = () => {
     res.render('admin', prop)
   })
 
-  router.get('/levels', async (req: Request, res:Response) => {
+  router.get('/levels', async (req: Request, res: Response) => {
     let prop = makeProp(req)
-    
+
     const levels = await db.getLevels()
     prop.levels = levels
-    
+
     prop.state = 3
     res.render('admin', prop)
   })
 
   router.get('/levels/:id', async (req: Request, res: Response) => {
     let prop = makeProp(req)
-    
+    if (req.query.status) prop.state = 5
+    else prop.state = 4
+
     const level = await db.getLevel(req.params.id)
-    if(!level) return res.redirect('/admin/levels')
+    if (!level) return res.redirect('/admin/levels')
     prop.level = level
-    
-    prop.state = 4
+
     res.render('admin', prop)
   })
+
+  //   let prop = makeProp(req)
+
+  //   prop.state = 5
+  //   res.render('admin', prop)
+  // })
 
   return router
 }

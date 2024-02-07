@@ -1,5 +1,11 @@
 import { initializeApp, FirebaseApp } from 'firebase/app'
-import { Firestore, deleteDoc, doc, getDoc, updateDoc } from 'firebase/firestore'
+import {
+  Firestore,
+  deleteDoc,
+  doc,
+  getDoc,
+  updateDoc
+} from 'firebase/firestore'
 import {
   getFirestore,
   collection,
@@ -37,7 +43,7 @@ export class FirestoreDB {
   async getLevel(id: string): Promise<{}> {
     const docRef = doc(this.db, 'levels', id)
     const docSnap = await getDoc(docRef)
-    if(!docSnap.exists()) return false
+    if (!docSnap.exists()) return false
     const result = { id: docSnap.id, data: docSnap.data() }
 
     return result
@@ -51,17 +57,26 @@ export class FirestoreDB {
     })
     return true
   }
-  
+
+  // wip
   async deleteLevel(levelId: string) {
-    const levelRef = await doc(this.db, 'levels', levelId)
-    await deleteDoc(levelRef)
+    const q = query(collection(this.db, 'users'), where('level', '==', levelId))
+    const usersRef = await getDocs(q)
+    if (!usersRef.empty) return false
+    await deleteDoc(doc(this.db, 'levels', levelId))
     return true
   }
 
-  // wip 
+  // wip
   async addLevel(levelData: LevelData) {
     const newLevelRef = await addDoc(collection(this.db, 'levels'), levelData)
-    return true 
+    return true
+  }
+  // wip 
+  async editLevel(levelData: LevelData, id:string) {
+    const levelRef = doc(this.db, 'levels', id)
+    const result = updateDoc(levelRef, levelData)
+    return true
   }
 }
 
