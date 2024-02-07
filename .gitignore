@@ -1,5 +1,4 @@
 node_modules/
 dist/
 config.ts
-./public/css/style.css
 public/css/style.css
