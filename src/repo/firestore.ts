@@ -15,7 +15,7 @@ import {
   where
 } from 'firebase/firestore'
 import bcrypt from 'bcryptjs'
-import { LevelData, Status, User } from '../types/api'
+import { Level, LevelData, Status, User } from '../types/api'
 
 export class FirestoreDB {
   public bc = bcrypt
@@ -40,11 +40,17 @@ export class FirestoreDB {
     return result
   }
 
-  async getLevel(id: string): Promise<{}> {
+  async getLevel(id: string): Promise<Level> {
     const docRef = doc(this.db, 'levels', id)
     const docSnap = await getDoc(docRef)
-    if (!docSnap.exists()) return false
-    const result = { id: docSnap.id, data: docSnap.data() }
+    if (!docSnap.exists()) return null
+    const data = {
+      type: docSnap.data().type,
+      description: docSnap.data().description,
+      price: docSnap.data().price,
+      included: docSnap.data().included,
+    }
+    const result = { id: docSnap.id, data: data }
 
     return result
   }
@@ -72,8 +78,8 @@ export class FirestoreDB {
     const newLevelRef = await addDoc(collection(this.db, 'levels'), levelData)
     return true
   }
-  // wip 
-  async editLevel(levelData: LevelData, id:string) {
+  // wip
+  async editLevel(levelData: LevelData, id: string) {
     const levelRef = doc(this.db, 'levels', id)
     const result = updateDoc(levelRef, levelData)
     return true
@@ -116,6 +122,7 @@ export class UsersFirestoreDB extends FirestoreDB {
         const levelType = levels.filter((level) => level.id === user.level)
         user.level = levelType[0].data.type
       }
+      user.id = doc.id
       data.push(user)
     })
     return data
@@ -124,7 +131,14 @@ export class UsersFirestoreDB extends FirestoreDB {
   async getUserById(id: string) {
     const docRef = doc(this.db, 'users', id)
     const docSnap = await getDoc(docRef)
-    return docSnap.data()
+    if (!docSnap.exists()) return false
+    let data = docSnap.data()
+    if (data.level) {
+      const level = await this.getLevel(data.level)
+      data.level = level!.data.type
+    }
+    data.id = docSnap.id
+    return data
   }
 
   async addUser(userData: User) {
@@ -190,5 +204,17 @@ export class UsersFirestoreDB extends FirestoreDB {
       field: null,
       data: response
     }
+  }
+
+  async deleteUser(userId: string) {
+    await deleteDoc(doc(this.db, 'users', userId))
+    return true
+  }
+
+  async editUser(userData: any, id: string) {
+    const userRef = doc(this.db, 'users', id)
+    const result = updateDoc(userRef, userData)
+    return true
+    
   }
 }

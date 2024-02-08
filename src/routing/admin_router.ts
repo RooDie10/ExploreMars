@@ -22,6 +22,21 @@ export const adminRouter = () => {
     res.render('admin', prop)
   })
 
+  router.get('/users/:id', async (req: Request, res: Response) => {
+    let prop = makeProp(req)
+    if (req.query.status) {
+      prop.state = 7
+      prop.levels = await db.getLevels()
+    }
+    else prop.state = 6
+
+    const user = await usersDb.getUserById(req.params.id)
+    if (!user) return res.redirect('/admin/users')
+    prop.user = user
+
+    res.render('admin', prop)
+  })
+
   router.get('/orders', async (req: Request, res: Response) => {
     let prop = makeProp(req)
 
@@ -59,12 +74,6 @@ export const adminRouter = () => {
 
     res.render('admin', prop)
   })
-
-  //   let prop = makeProp(req)
-
-  //   prop.state = 5
-  //   res.render('admin', prop)
-  // })
 
   return router
 }

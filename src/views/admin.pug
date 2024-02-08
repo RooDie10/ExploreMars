@@ -19,7 +19,7 @@ html(lang="en")
         li 
           a.link(href="/admin" hx-get="/admin/" hx-select="#content" hx-push-url="/admin/" hx-target="#content" hx-swap="innerHTML") Main
         li 
-          a.link(href="/admin/users" hx-get="/admin/users/" hx-select="#content" hx-push-url="/admin/users/" hx-target="#content" hx-swap="innerHTML") Users
+          a.link(href="/admin/users" hx-trigger="reload-users from:body, click" hx-get="/admin/users/" hx-select="#content" hx-push-url="/admin/users/" hx-target="#content" hx-swap="innerHTML") Users
         li 
           a.link(href="/admin/orders" hx-get="/admin/orders/" hx-select="#content" hx-push-url="/admin/orders/" hx-target="#content" hx-swap="innerHTML") Orders
         li 
@@ -31,15 +31,19 @@ html(lang="en")
           when 0
             h2.h2.mt-4 Main section 
           when 1
-            include partials/admin/users.pug 
+            include partials/admin/users/users.pug 
           when 2 
             include partials/admin/orders.pug        
           when 3 
-            include partials/admin/levels.pug
+            include partials/admin/levels/levels.pug
           when 4
-            include partials/admin/level.pug
+            include partials/admin/levels/level.pug
           when 5
-            include partials/admin/edit_level.pug
+            include partials/admin/levels/edit_level.pug
+          when 6
+            include partials/admin/users/user.pug
+          when 7 
+            include partials/admin/users/edit_user.pug
 
 
   dialog(id='newLevelDialog' class='dialog relative w-3/5')

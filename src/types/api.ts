@@ -1,3 +1,5 @@
+import { DocumentData } from "firebase/firestore"
+
 export type User = {
   name?: string
   email: string
@@ -28,3 +30,8 @@ export type LevelData = {
   included: [string]
   price: number
 }
+
+export type Level = {
+  id: string,
+  data: LevelData | DocumentData
+} | null 
