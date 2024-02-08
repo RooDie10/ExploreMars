@@ -172,7 +172,7 @@ export class UsersFirestoreDB extends FirestoreDB {
 
     if (querySnapshot.empty)
       return {
-        status: false,
+        error: false,
         message: 'User not found',
         field: 'email',
         data: null
@@ -183,7 +183,7 @@ export class UsersFirestoreDB extends FirestoreDB {
 
     if (!(await this.bc.compare(userData.password, user.password)))
       return {
-        status: false,
+        error: false,
         message: 'Wrong password',
         field: 'password',
         data: null
@@ -199,7 +199,7 @@ export class UsersFirestoreDB extends FirestoreDB {
     if (user.level) response.level = user.level
 
     return {
-      status: true,
+      error: true,
       message: 'Login successful',
       field: null,
       data: response

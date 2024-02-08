@@ -8,10 +8,10 @@ export type User = {
 }
 
 export type Status = {
-  status: boolean
-  message: string
-  field: string | null
-  data: { id: string; name: string; level: string | null } | null
+  error: boolean
+  message?: string
+  field?: string | null
+  data?: { id: string; name: string; level: string | null } | null
 }
 
 export type Prop = {
