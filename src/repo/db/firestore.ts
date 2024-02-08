@@ -15,7 +15,7 @@ import {
   where
 } from 'firebase/firestore'
 import bcrypt from 'bcryptjs'
-import { Level, LevelData, Status, User } from '../types/api'
+import { Level, LevelData, Status, User } from '../../types/api'
 
 export class FirestoreDB {
   public bc = bcrypt

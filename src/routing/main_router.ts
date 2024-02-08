@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express'
 import { isUserAuth, } from './middlewares/middlewares'
-import { FirestoreDB, UsersFirestoreDB} from '../repo/firestore'
-import { firestoreConfig } from '../repo/config'
+import { FirestoreDB, UsersFirestoreDB} from '../repo/db/firestore'
+import { firestoreConfig } from '../repo/db/config'
 import { Prop } from '../types/api'
 
 export const checkUser = (req: Request) => {

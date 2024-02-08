@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express'
-import { FirestoreDB, UsersFirestoreDB } from '../repo/firestore'
-import { firestoreConfig } from '../repo/config'
+import { FirestoreDB, UsersFirestoreDB } from '../repo/db/firestore'
+import { firestoreConfig } from '../repo/db/config'
 
 export const apiRouter = () => {
   const router = express.Router()
