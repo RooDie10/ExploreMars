@@ -1,11 +1,12 @@
 import express, { Request, Response } from 'express'
 import { APIRepo } from '../repo/api_repo/api_repo'
+import { validateBodyEmail, validateBodyPassword, validationBodyMiddleware } from './middlewares/validation_middlewares'
 
 export const apiRouter = () => {
   const router = express.Router()
   const repo = new APIRepo()
 
-  router.post('/signin', async (req: Request, res: Response) => {
+  router.post('/signin', validateBodyEmail, validateBodyPassword, validationBodyMiddleware, async (req: Request, res: Response) => {
     const result = await repo.signIn(req)
     if (result.errors.length != 0) return res.json(result)
 
