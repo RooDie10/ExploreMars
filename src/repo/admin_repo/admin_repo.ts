@@ -1,6 +1,6 @@
 import { Prop } from '../../types/api'
 import { Repo } from '../repo'
-import { Request, Response } from 'express'
+import { Request } from 'express'
 
 export class AdminRepo extends Repo {
   makeMainPage(req: Request): Prop {
@@ -8,6 +8,7 @@ export class AdminRepo extends Repo {
     prop.state = 0
     return prop
   }
+
   async makeUsersPage(req: Request): Promise<Prop> {
     let prop = this.makeProp(req)
     const users = await this.usersDb.getUsers()
@@ -15,6 +16,7 @@ export class AdminRepo extends Repo {
     prop.state = 1
     return prop
   }
+
   async makeSingleUserPage(req: Request): Promise<Prop | false> {
     let prop = this.makeProp(req)
     if (req.query.status) {
@@ -28,6 +30,7 @@ export class AdminRepo extends Repo {
 
     return prop
   }
+
   async makeOrdersPage(req: Request): Promise<Prop> {
     let prop = this.makeProp(req)
 
@@ -43,6 +46,7 @@ export class AdminRepo extends Repo {
     prop.state = 2
     return prop
   }
+
   async makeLevelsPage(req: Request): Promise<Prop> {
     let prop = this.makeProp(req)
 
@@ -52,6 +56,7 @@ export class AdminRepo extends Repo {
     prop.state = 3
     return prop
   }
+
   async makeSingleLevelPage(req: Request): Promise<Prop | false> {
     let prop = this.makeProp(req)
     if (req.query.status) prop.state = 5
