@@ -27,7 +27,7 @@ export class MainRepo extends Repo {
 
     if (
       req.signedCookies.user !== undefined &&
-      req.signedCookies.user.level !== undefined
+      req.signedCookies.user.level !== null
     ) {
       const level = await this.db.getLevel(req.signedCookies.user.level)
       prop!.user = { level: level!.data.type }

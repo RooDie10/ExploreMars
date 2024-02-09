@@ -17,7 +17,7 @@ export type Status = {
 export type Prop = {
   isUserAuth: boolean
   userData: {id: string, name: string, level: string | null} | null
-  user?: User | DocumentData 
+  user?: User | DocumentData | false
   level?: Level
   levels?: Level[]
   state?: number
