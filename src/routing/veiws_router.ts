@@ -15,8 +15,8 @@ export const viewsRouter = () => {
     res.render('partials/header/header_sign', prop)
   })
 
-  router.get('/buy_level', (req: Request, res: Response) => {
-    const prop = repo.makeBuyLevelView(req)
+  router.get('/buy_level', async (req: Request, res: Response) => {
+    const prop = await repo.makeBuyLevelView(req)
     res.render('partials/levels/buy_level', prop)
   })
 

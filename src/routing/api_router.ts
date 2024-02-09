@@ -40,7 +40,7 @@ export const apiRouter = () => {
       httpOnly: true
     })
 
-    res.json(result)
+    res.set("HX-Trigger", "reload-user").json(result)
   })
 
   router.delete('/logout', (req: Request, res: Response) => {
