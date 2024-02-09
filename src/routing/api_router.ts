@@ -7,7 +7,7 @@ export const apiRouter = () => {
 
   router.post('/signin', async (req: Request, res: Response) => {
     const result = await repo.signIn(req)
-    if (result.error) return res.json(result)
+    if (result.errors.length != 0) return res.json(result)
 
     res.cookie('user', result.data, {
       maxAge: 900000,
@@ -19,7 +19,7 @@ export const apiRouter = () => {
 
   router.post('/signup', async (req: Request, res: Response) => {
     const result = await repo.signUp(req)
-    if (result.error) return res.json(result)
+    if (result.errors.length != 0) return res.json(result)
 
     res.cookie('user', result.data, {
       maxAge: 900000,
@@ -32,7 +32,7 @@ export const apiRouter = () => {
 
   router.post('/buy', async (req: Request, res: Response) => {
     const result = await repo.buyLevel(req)
-    if (result.error) return res.json(result)
+    if (result.errors.length != 0) return res.json(result)
 
     res.cookie('user', result.data, {
       maxAge: 900000,
@@ -40,7 +40,7 @@ export const apiRouter = () => {
       httpOnly: true
     })
 
-    res.set("HX-Trigger", "reload-user").json(result)
+    res.set('HX-Trigger', 'reload-user').json(result)
   })
 
   router.delete('/logout', (req: Request, res: Response) => {

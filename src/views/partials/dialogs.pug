@@ -2,7 +2,7 @@ dialog(id='signinDialog' class='dialog relative')
   a(hx-on:click="closeModal('signinDialog')" class=" absolute right-6 w-4 leading-4 text-center p-1") x
   form(hx-post='/api/signin'
     hx-swap='none'
-    hx-indicator='#signinMessage'
+    hx-indicator='#signinIndicator'
     hx-disabled-elt='#signinButton'
     id='signinForm'
     class='flex flex-col gap-4 items-center')
@@ -27,13 +27,15 @@ dialog(id='signinDialog' class='dialog relative')
     a(class='link cursor-pointer'
       hx-on:click="openModal('signupDialog'); closeModal('signinDialog')") Sign up
 
-    p(id='signinMessage' class='htmx-indicator') Loading
+    p(id='signinIndicator' class='htmx-indicator') Loading
+
+    div.message
 
 dialog(id='signupDialog' class='dialog relative')
   a(hx-on:click="closeModal('signupDialog')" class=" absolute right-6 w-4 leading-4 text-center p-1") x
   form(hx-post='/api/signup'
     hx-swap='none'
-    hx-indicator='#signupMessage'
+    hx-indicator='#signupIndicator'
     hx-disabled-elt='#signupButton'
     id='signupForm'
     class='flex flex-col gap-4 items-center')
@@ -65,7 +67,8 @@ dialog(id='signupDialog' class='dialog relative')
     button(id="signupButton" class='button w-2/3 my-0' type='submit') Submit
     a(class='link cursor-pointer'
       hx-on:click="openModal('signinDialog'); closeModal('signupDialog')") Sign in
-    p(id='signupMessage' class='htmx-indicator') Loading
+    p(id='signupIndicator' class='htmx-indicator') Loading
+    div.message
 
 //- dialog(open id='cookieDialog' class='absolute bottom-0 p-6 w-2/3 mx-auto flex justify-between items-center')
 //-   p(class="font-bold text-xl") we use cookies, you cannot deny it (yet)

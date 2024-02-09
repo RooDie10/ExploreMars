@@ -7,21 +7,21 @@ const closeModal = (id) => {
 
 const handleForm = (form) => {
   form.addEventListener('htmx:after-request', (event) => {
-    const inputs = form.querySelectorAll('input')
-    inputs.forEach((input) => htmx.removeClass(input, 'input-error'))
     const response = JSON.parse(event.detail.xhr.response)
-    const p = form.querySelector('p')
-    htmx.removeClass(p, '!opacity-100')
-
-    if (response.error) {
-      const field = form.querySelector(`[name=${response.field}]`)
-      htmx.addClass(field, 'input-error')
-      htmx.addClass(p, '!opacity-100')
-      p.textContent = response.message
+    const messageField = form.querySelector('.message')
+    const inputs = form.querySelectorAll('input')
+    inputs.forEach((input) => input.classList.remove('input-error'))
+    messageField.innerHTML = ''
+    if (response.errors.length > 0) {
+      response.errors.forEach((error) => {
+        const field = form.querySelector(`[name=${error.field}]`)
+        field.classList.toggle('input-error')
+        let errorField = document.createElement('p')
+        errorField.innerHTML = error.message
+        form.querySelector('.message').append(errorField)
+      })
     } else {
       form.reset()
-      p.textContent = 'Loading'
-      htmx.removeClass(p, '!opacity-100')
       closeModal(form.parentElement.id)
     }
   })

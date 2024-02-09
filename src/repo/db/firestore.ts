@@ -48,7 +48,7 @@ export class FirestoreDB {
       type: docSnap.data().type,
       description: docSnap.data().description,
       price: docSnap.data().price,
-      included: docSnap.data().included,
+      included: docSnap.data().included
     }
     const result = { id: docSnap.id, data: data }
 
@@ -172,9 +172,7 @@ export class UsersFirestoreDB extends FirestoreDB {
 
     if (querySnapshot.empty)
       return {
-        error: false,
-        message: 'User not found',
-        field: 'email',
+        errors: [{ message: 'User not found', field: 'email' }],
         data: null
       }
 
@@ -183,9 +181,7 @@ export class UsersFirestoreDB extends FirestoreDB {
 
     if (!(await this.bc.compare(userData.password, user.password)))
       return {
-        error: false,
-        message: 'Wrong password',
-        field: 'password',
+        errors: [{ message: 'Wrong password', field: 'password' }],
         data: null
       }
 
@@ -199,9 +195,7 @@ export class UsersFirestoreDB extends FirestoreDB {
     if (user.level) response.level = user.level
 
     return {
-      error: true,
-      message: 'Login successful',
-      field: null,
+      errors: [],
       data: response
     }
   }
@@ -215,6 +209,5 @@ export class UsersFirestoreDB extends FirestoreDB {
     const userRef = doc(this.db, 'users', id)
     const result = updateDoc(userRef, userData)
     return true
-    
   }
 }

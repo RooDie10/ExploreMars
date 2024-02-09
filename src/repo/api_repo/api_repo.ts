@@ -4,29 +4,25 @@ import { Request } from 'express'
 
 export class APIRepo extends Repo {
   async signIn(req: Request): Promise<Status> {
-    const user = await this.usersDb.findUser({
+    const result = await this.usersDb.findUser({
       email: req.body.email,
       password: req.body.password
     })
 
-    if (!user.error) {
-      switch (user.field) {
+    if (result.errors.length > 0) {
+      switch (result.errors[0].field) {
         case 'email':
           return {
-            error: true,
-            field: 'email',
-            message: user.message
+            errors: [{ field: 'email', message: result.errors[0].message }]
           }
 
         case 'password':
           return {
-            error: true,
-            field: 'password',
-            message: user.message
+            errors: [{ field: 'password', message: result.errors[0].message }]
           }
       }
     }
-    return { error: false, data: user.data }
+    return { errors: [], data: result.data }
   }
 
   async signUp(req: Request): Promise<Status> {
@@ -40,23 +36,19 @@ export class APIRepo extends Repo {
 
     if (newUser === null) {
       return {
-        error: true,
-        field: 'email',
-        message: 'User already exists'
+        errors: [{ field: 'email', message: 'User already exists' }]
       }
     }
     let userName
     if (newUser.userData) userName = newUser.userData.name
     const result = { id: newUser.id, name: userName, level: null }
-    return { error: false, data: result }
+    return { errors: [], data: result }
   }
 
   async buyLevel(req: Request): Promise<Status> {
     if (req.signedCookies.user === undefined)
       return {
-        error: true,
-        field: null,
-        message: 'You need to sign in first'
+        errors: [{ field: null, message: 'You need to sign in first' }]
       }
 
     const userId = req.signedCookies.user.id
@@ -66,7 +58,7 @@ export class APIRepo extends Repo {
     const user = req.signedCookies.user
     user.level = selectedLevelId
 
-    return { error: false, data: user }
+    return { errors: [], data: user }
   }
   logOut(req: Request): boolean {
     const ref = req.get('referer')
