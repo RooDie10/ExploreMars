@@ -1,8 +1,9 @@
 import express, { Request, Response } from 'express'
-import { isUserAuth, } from './middlewares/middlewares'
-import { FirestoreDB, UsersFirestoreDB} from '../repo/db/firestore'
+import { isUserAuth } from './middlewares/middlewares'
+import { FirestoreDB, UsersFirestoreDB } from '../repo/db/firestore'
 import { firestoreConfig } from '../repo/db/config'
 import { Prop } from '../types/api'
+import { MainRepo } from '../repo/main_repo/main_repo'
 
 export const checkUser = (req: Request) => {
   if (req.signedCookies.user !== undefined) return true
@@ -24,33 +25,20 @@ export const makeProp = (req: Request): Prop => {
 
 export const mainRouter = () => {
   const router = express.Router()
-  const db = new FirestoreDB(firestoreConfig)
-  const usersDb = new UsersFirestoreDB(firestoreConfig)
+  const repo = new MainRepo()
+
   router.get('/', (req: Request, res: Response) => {
-    const prop = makeProp(req)
+    const prop = repo.makeIndexPage(req)
     res.render('index', prop)
   })
 
   router.get('/profile', isUserAuth, async (req: Request, res: Response) => {
-    let user = await usersDb.getUserById(req.signedCookies.user.id)
-    let level = null
-
-    let prop = makeProp(req)
-
-    if (req.signedCookies.user.level)
-      level = await db.getLevel(req.signedCookies.user.level)
-
-    prop.user = user
-    prop.level = level
+    const prop = await repo.makeProfilePage(req)
     res.render('profile', prop)
   })
 
   router.get('/levels', async (req: Request, res: Response) => {
-    let levels = await db.getLevels()
-    let prop = makeProp(req)
-
-    prop.levels = levels
-
+    const prop = await repo.makeLevelPage(req)
     res.render('levels', prop)
   })
 

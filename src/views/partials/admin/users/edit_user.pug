@@ -16,6 +16,7 @@ div#user(class="p-2 bg-blue-100 rounded-xl my-4" hx-trigger="reload-user from:bo
             option(value=level.id selected)=level.data.type
           - else
             option(value=level.id)=level.data.type  
+        option(value="") None
     div(class="mt-4")
       button.button(type="submit") Accept
       button.button(class="ml-2" hx-swap="outerHTML" hx-select="#content" hx-target="#content" hx-push-url='/admin/users/' + user.id hx-get='/admin/users/' + user.id) Cancel
