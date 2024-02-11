@@ -6,7 +6,7 @@ const closeModal = (id) => {
 }
 
 const handleForm = (form) => {
-  form.addEventListener('htmx:after-request', (event) => {
+  form.addEventListener('htmx:after-request', formHandler = (event) => {
     const response = JSON.parse(event.detail.xhr.response)
     const messageField = form.querySelector('.message')
     const inputs = form.querySelectorAll('input')

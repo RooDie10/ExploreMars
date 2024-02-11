@@ -1,5 +1,5 @@
 div#level(hx-trigger="reload-level from:body" hx-swap="outerHTML" hx-select="#level" hx-push-url='/admin/levels/' + level.id hx-get='/admin/levels/' + level.id class="p-2 bg-blue-100 rounded-xl my-4")
-  form(hx-put='/api/level/' + level.id)
+  form(hx-put='/api/level/' + level.id id="editLevelId" hx-swap="none")
     p
       strong type: 
     input.input(class="border-black border-solid border-2" name="type" value=level.data.type)
@@ -13,6 +13,10 @@ div#level(hx-trigger="reload-level from:body" hx-swap="outerHTML" hx-select="#le
       strong included: 
     -var includedString = level.data.included.join('; ')
     textarea.input(class="border-black border-solid border-2" name="included")=includedString
+    div.message
     div
       button.button(type="submit") Accept
-      button.button(class="ml-2" hx-swap="outerHTML" hx-select="#content" hx-target="#content" hx-push-url='/admin/levels/' + level.id hx-get='/admin/levels/' + level.id) Cancel
+      button.button(class="ml-2" hx-on:click="levelForm.removeEventListener('htmx:after-request', formHandler)" hx-swap="outerHTML" hx-select="#content" hx-target="#content" hx-push-url='/admin/levels/' + level.id hx-get='/admin/levels/' + level.id) Cancel
+  script.
+    const levelForm = document.querySelector('#editLevelId');
+    handleForm(levelForm);

@@ -50,10 +50,11 @@ html(lang="en")
     a(hx-on:click="closeModal('newLevelDialog')" class=" absolute right-6 w-4 leading-4 text-center p-1") x
     form(hx-post='/api/level'
       hx-swap='none'
-      hx-indicator='#newLevelMessage'
+      hx-indicator='#indicator'
       hx-disabled-elt='#newLevelButton'
       id='newLevelForm'
       class='flex flex-col gap-4 items-center')
+
       h3(class='text-center font-bold text-xl mt-4') Add level 
       div(class="w-full") 
         label(for='newLevelType' class='block self-start') Type
@@ -91,7 +92,8 @@ html(lang="en")
 
       button(id="newLevelButton" class='button w-2/3 my-0' type='submit') Submit
 
-      p(id='newLevelMessage' class='htmx-indicator') Loading
+      p(id='indicator' class='htmx-indicator') Loading
+      div.message
   script(src="/js/main.js") 
   script(src="/js/levels.js") 
   include partials/dialogs.pug

@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import { body, matchedData, validationResult } from 'express-validator'
+import { body, matchedData, param, validationResult } from 'express-validator'
 
 export const validateBodyEmail = body('email')
   .trim()
@@ -10,6 +10,12 @@ export const validateBodyEmail = body('email')
   .withMessage('Exceeded max length')
 
 export const validateBodyPassword = body('password')
+  .trim()
+  .escape()
+  .isLength({ max: 254 })
+  .withMessage('Exceeded max length')
+
+export const validateBodyName = body('name')
   .trim()
   .escape()
   .isLength({ max: 254 })
@@ -33,3 +39,15 @@ export const validationBodyMiddleware = (
   req.body = matchedData(req)
   next()
 }
+
+export const newLevelTextValidation = (field: string) =>
+  body(field)
+    .trim()
+    .escape()
+    .isLength({ max: 254 })
+    .withMessage(`Exceeded max lenght on ${field} field`)
+
+export const newLevelPriceValidation = body('price')
+  .isInt()
+  .isLength({ max: 254 })
+  .withMessage('Exceeded max lenght at field price')

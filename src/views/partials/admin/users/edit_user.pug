@@ -1,5 +1,5 @@
 div#user(class="p-2 bg-blue-100 rounded-xl my-4" hx-trigger="reload-user from:body" hx-swap="outerHTML" hx-select="#user" hx-push-url='/admin/users/' + user.id hx-get='/admin/users/' + user.id class="p-2 bg-blue-100 rounded-xl my-4")
-  form(hx-put='/api/user/' + user.id)
+  form(hx-put='/api/user/' + user.id hx-swap="none" id="userForm")
     p
       strong name: 
       input.input(class="border-black border-solid border-2 block" type="text" name="name" value=user.name)
@@ -17,6 +17,10 @@ div#user(class="p-2 bg-blue-100 rounded-xl my-4" hx-trigger="reload-user from:bo
           - else
             option(value=level.id)=level.data.type  
         option(value="") None
+    div.message
     div(class="mt-4")
       button.button(type="submit") Accept
-      button.button(class="ml-2" hx-swap="outerHTML" hx-select="#content" hx-target="#content" hx-push-url='/admin/users/' + user.id hx-get='/admin/users/' + user.id) Cancel
+      button.button(class="ml-2" hx-swap="outerHTML" hx-on:click="userForm.removeEventListener('htmx:after-request', formHandler)" hx-select="#content" hx-target="#content" hx-push-url='/admin/users/' + user.id hx-get='/admin/users/' + user.id) Cancel
+  script.
+    const userForm = document.querySelector('#userForm');
+    handleForm(userForm);
