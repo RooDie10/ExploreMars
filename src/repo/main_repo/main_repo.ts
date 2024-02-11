@@ -37,4 +37,13 @@ export class MainRepo extends Repo {
 
     return prop
   }
+
+  async makeOrderPage(req: Request): Promise<Prop | false> {
+    const prop = this.makeProp(req)
+    if(req.query.id == undefined) return false
+    const level = await this.db.getLevel(req.query.id!.toString())
+    if(level == null) return false
+    prop.level = level
+    return prop
+  }
 }

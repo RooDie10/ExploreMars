@@ -42,5 +42,14 @@ export const mainRouter = () => {
     res.render('levels', prop)
   })
 
+  router.get('/order', async (req: Request, res: Response) => {
+    const prop = await repo.makeOrderPage(req)
+    if (!prop) return res.redirect('/levels')
+    
+    res.render('order', prop)
+  })
+  
+
+
   return router
 }
