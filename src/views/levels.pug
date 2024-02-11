@@ -10,10 +10,10 @@ html(lang="en")
       integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC",
       crossorigin="anonymous"
     )
-  body 
+  body.slide-it
     include partials/header/header.pug
 
-    main.wrapper 
+    main.wrapper
       h1.h1 Levels
       p info about levels
       include partials/levels/levels.pug
@@ -21,6 +21,6 @@ html(lang="en")
       div(hx-get='views/buy_level' hx-trigger="reload-user from:body" hx-swap='innerHTML' hx-target='this')
         include partials/levels/buy_level.pug
 
-  script(src="js/main.js")
-  include partials/dialogs.pug
-  include partials/levels/dialog.pug
+    script(src="js/main.js")
+    include partials/dialogs.pug
+    include partials/levels/dialog.pug

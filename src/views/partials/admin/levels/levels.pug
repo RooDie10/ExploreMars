@@ -17,4 +17,4 @@ ul#levels
       p
         strong price: 
         =level.data.price
-      a(class="link cursor-pointer" hx-swap="outerHTML" hx-select="#content" hx-target="#content" hx-push-url='/admin/levels/' + level.id hx-get='/admin/levels/' + level.id) Open
+      a(class="link cursor-pointer" hx-swap="outerHTML transition:true" hx-select="#content" hx-target="#content" hx-push-url='/admin/levels/' + level.id hx-get='/admin/levels/' + level.id) Open

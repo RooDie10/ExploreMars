@@ -17,16 +17,16 @@ html(lang="en")
       h1.h1 Admin page
       ul(class="flex gap-2") 
         li 
-          a.link(href="/admin" hx-get="/admin/" hx-select="#content" hx-push-url="/admin/" hx-target="#content" hx-swap="innerHTML") Main
+          a.link(href="/admin" hx-get="/admin/" hx-select="#content" hx-push-url="/admin/" hx-target="#content" hx-swap="outerHTML transition:true") Main
         li 
-          a.link(href="/admin/users" hx-trigger="reload-users from:body, click" hx-get="/admin/users/" hx-select="#content" hx-push-url="/admin/users/" hx-target="#content" hx-swap="innerHTML") Users
+          a.link(href="/admin/users" hx-trigger="reload-users from:body, click" hx-get="/admin/users/" hx-select="#content" hx-push-url="/admin/users/" hx-target="#content" hx-swap="outerHTML transition:true") Users
         li 
-          a.link(href="/admin/orders" hx-get="/admin/orders/" hx-select="#content" hx-push-url="/admin/orders/" hx-target="#content" hx-swap="innerHTML") Orders
+          a.link(href="/admin/orders" hx-get="/admin/orders/" hx-select="#content" hx-push-url="/admin/orders/" hx-target="#content" hx-swap="outerHTML transition:true") Orders
         li 
-          a.link(href="/admin/levels" hx-trigger="reload-levels from:body, click" hx-get="/admin/levels/" hx-select="#content" hx-push-url="/admin/levels/" hx-target="#content" hx-swap="innerHTML") Levels 
+          a.link(href="/admin/levels" hx-trigger="reload-levels from:body, click" hx-get="/admin/levels/" hx-select="#content" hx-push-url="/admin/levels/" hx-target="#content" hx-swap="outerHTML transition:true") Levels 
 
 
-      section#content
+      section#content.slide-it
         case state 
           when 0
             h2.h2.mt-4 Main section 

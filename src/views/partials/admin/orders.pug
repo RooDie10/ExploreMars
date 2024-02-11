@@ -5,7 +5,7 @@ form(
   hx-get="/admin/orders/"
   hx-select="#orders"
   hx-target="#orders"
-  hx-swap="outerHTML"
+  hx-swap="outerHTML transition:true"
   hx-indicator="#loading")
   label.block(for="ordersSelect") Select level 
   select#ordersSelect(class="select w-auto bg-blue-100" name="levelId")
@@ -14,7 +14,7 @@ form(
         option(value=level.id) #{level.data.type} 
   p#loading(class="htmx-indicator cursor-default") Loading
 
-ul#orders 
+ul#orders
   - if (users.length == 0)
     li(class="p-2 bg-blue-100 rounded-xl my-4") 
       p No orders for that level

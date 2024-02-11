@@ -20,7 +20,9 @@ div#user(class="p-2 bg-blue-100 rounded-xl my-4" hx-trigger="reload-user from:bo
     div.message
     div(class="mt-4")
       button.button(type="submit") Accept
-      button.button(class="ml-2" hx-swap="outerHTML" hx-on:click="userForm.removeEventListener('htmx:after-request', formHandler)" hx-select="#content" hx-target="#content" hx-push-url='/admin/users/' + user.id hx-get='/admin/users/' + user.id) Cancel
+      button.button(class="ml-2" hx-swap="outerHTML transition:true" hx-on:click="userForm.removeEventListener('htmx:after-request', formHandler)" hx-select="#content" hx-target="#content" hx-push-url='/admin/users/' + user.id hx-get='/admin/users/' + user.id) Cancel
   script.
-    const userForm = document.querySelector('#userForm');
-    handleForm(userForm);
+    try {
+      const userForm = document.querySelector('#userForm');
+    } catch {}
+      handleForm(userForm);
