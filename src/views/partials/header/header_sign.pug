@@ -1,7 +1,7 @@
 div(class='flex justify-center gap-2')
   if isUserAuth
     p(class='text-nowrap') hello #{userData.name}
-    a.button(href="/profile") Profile 
+    a.button(href="/profile" class="bg-altBgColor text-altFontColor") Profile 
   else
-    button.button(hx-on:click="openModal('signinDialog')") Sign in
-    button(class='button hidden md:block' hx-on:click="openModal('signupDialog')") Sign up
+    button.button(hx-on:click="openModal('signinDialog')" class="bg-altBgColor text-altFontColor transition-all group-[.intersect]:bg-actionColor group-[.intersect]:text-fontColor") Sign in
+    button(class='button hidden md:block' class="bg-altBgColor text-altFontColor transition-all group-[.intersect]:bg-actionColor group-[.intersect]:text-fontColor" hx-on:click="openModal('signupDialog')") Sign up
