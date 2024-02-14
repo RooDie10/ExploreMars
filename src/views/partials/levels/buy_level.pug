@@ -5,7 +5,7 @@ if isUserAuth
       =user.level
     p.p(class="group-[.alt]:text-altFontColor") To change level contact us
   - else
-    button(class='button' hx-on:click="openModal('buyDialog')") Make order
+    button(class='button' hx-on:click="openModal('buyDialog'); disableScroll()") Make order
 else
-  button(hx-on:click="openModal('signinDialog')" class='button') Sign in
+  button(hx-on:click="openModal('signinDialog'); disableScroll()" class='button') Sign in
   p(class="group-[.alt]:text-altFontColor mt-2") To buy you need to be signed in 

@@ -1,5 +1,5 @@
 dialog(id='signinDialog' class='dialog')
-  a(hx-on:click="closeModal('signinDialog')" class="absolute right-6 w-4 leading-4 text-center p-1") x
+  a(hx-on:click="closeModal('signinDialog'); enableScroll()" class="absolute right-6 w-4 leading-4 text-center p-1") x
   form(hx-post='/api/signin'
     hx-swap='none'
     hx-indicator='#signinIndicator'
@@ -34,7 +34,7 @@ dialog(id='signinDialog' class='dialog')
     div.message
 
 dialog(id='signupDialog' class='dialog')
-  a(hx-on:click="closeModal('signupDialog')" class=" absolute right-6 w-4 leading-4 text-center p-1") x
+  a(hx-on:click="closeModal('signupDialog'); enableScroll()" class=" absolute right-6 w-4 leading-4 text-center p-1") x
   form(hx-post='/api/signup'
     hx-swap='none'
     hx-indicator='#signupIndicator'

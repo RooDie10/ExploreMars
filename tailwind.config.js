@@ -5,9 +5,9 @@ module.exports = {
     extend: {
       colors: {
         bgColor: '#121212',
-        altBgColor: '#bfbdbd',
+        altBgColor: '#e8e8e8',
         altFontColor: '#121212',
-        fontColor: '#bfbdbd',
+        fontColor: '#e8e8e8',
         actionColor: '#ff2c1b'
       }
     }
