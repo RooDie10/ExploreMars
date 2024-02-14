@@ -8,5 +8,5 @@ dialog(class="dialog" id="buyDialog")
       select(class='select' name='id' id='levelSelect')
         each item in levels
           option(value=item.id) #{item.data.type} 
-    button(id='buyButton' class='button' type='submit') buy
+    button(id='buyButton' class='button' type='submit') Buy
     p(id='buyMessage' class='htmx-indicator') Loading

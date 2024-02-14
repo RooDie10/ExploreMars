@@ -19,7 +19,7 @@ html.gutter(lang="en")
     section(class="wrapper pt-40 pb-8 int")
       h1.h1 Explore Mars Your Way
       p.p We offer three different levels of exploration to cater to your adventurous spirit. Choose the one that suits you best.
-      a.button(href="#buy" class="block w-fit mt-8") Book now!
+      a.button(href="#buy" class="block w-fit mt-8") Buy now!
     section(class="grid grid-cols-3 grid-rows-2 gap-2 h-[100vh] mt-40 py-8")
       img(src="/images/levels/image1.webp" class="size-full object-cover ")
       img(src="/images/levels/image2.webp" class="size-full object-cover ")
@@ -28,15 +28,15 @@ html.gutter(lang="en")
       img(src="/images/levels/image5.webp" class="size-full object-cover col-span-2")
 
     section(class="wrapper pt-40 my-8")
-      h2.h2 Lorem ipsum dolor sit amet, consectetur adipisicing.
-      p.p Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab, explicabo quam doloremque laborum numquam distinctio incidunt delectus earum perspiciatis quis qui velit ullam optio praesentium excepturi in nam.
+      h2.h2 Choose the level that suits your desires:
+      p.p Exploring Mars offers unique and exciting tours to Mars for everyone who craves adventure and new knowledge.
     section(class="wrapper mt-10 py-8")
 
       include partials/levels/levels.pug
 
     section(class="wrapper mt-10 py-8 bg-altBgColor") 
-      h3.h3(class="text-altFontColor") Lorem ipsum dolor sit amet.
-      p.p(class="text-altFontColor") Lorem ipsum dolor sit amet consectetur adipisicing elit. Id quam modi harum fugiat officiis inventore, molestiae magnam!
+      h3.h3(class="text-altFontColor") Choose level you liked and buy it now!
+      p.p(class="text-altFontColor") 
       div(hx-get='views/buy_level' id="buy" hx-trigger="reload-user from:body" hx-swap='innerHTML' hx-target='this' class="my-8 group alt")
         include partials/levels/buy_level.pug
 
