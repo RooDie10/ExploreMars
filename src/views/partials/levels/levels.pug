@@ -8,14 +8,14 @@ ul
             strong Price: 
             |#{item.data.price} $
 
-        a.button(href="#buy" class="block px-6") Buy
-      div(class="")
-        p.p(class="px-4")
+        a.button(href="#buy" class="block px-12 w-fit") Book
+      div(class="col-span-2 col-start-2")
+        p.p
           strong Description: 
           =item.data.description
         div(class="mt-4")
           p.p 
-            strong Included: 
+            strong Included:
           ul(class="pl-8 list-disc")
             each included in item.data.included
               li
