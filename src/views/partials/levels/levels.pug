@@ -7,8 +7,7 @@ ul
           strong Price: 
           |#{item.data.price} $
 
-          div(hx-get='views/buy_level' hx-trigger="reload-user from:body" hx-swap='innerHTML' hx-target='this' class="mt-8")
-            include buy_level.pug
+        a.button(href="#buy" class="block w-fit mt-8") Book
       p.p(class="px-4")
         strong Diescription: 
         =item.data.description

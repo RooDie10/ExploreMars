@@ -19,8 +19,7 @@ html.gutter(lang="en")
     section(class="wrapper pt-40 pb-8 int")
       h1.h1 Lorem ipsum dolor sit.
       p.p Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab labore ad reprehenderit iusto tempora sequi ut ducimus vel quidem? Aut, dolore dolor? Recusandae ut nesciunt eius voluptatibus possimus?
-      div(hx-get='views/buy_level' hx-trigger="reload-user from:body" hx-swap='innerHTML' hx-target='this' class="my-8 group")
-        include partials/levels/buy_level.pug
+      a.button(href="#buy" class="block w-fit mt-8") Book
     section(class="grid grid-cols-3 grid-rows-2 gap-2 h-[100vh] mt-40 py-8")
       img(src="/images/levels/image1.webp" class="size-full object-cover ")
       img(src="/images/levels/image2.webp" class="size-full object-cover ")
@@ -38,7 +37,7 @@ html.gutter(lang="en")
     section(class="wrapper mt-10 py-8 bg-altBgColor") 
       h3.h3(class="text-altFontColor") Lorem ipsum dolor sit amet.
       p.p(class="text-altFontColor") Lorem ipsum dolor sit amet consectetur adipisicing elit. Id quam modi harum fugiat officiis inventore, molestiae magnam!
-      div(hx-get='views/buy_level' hx-trigger="reload-user from:body" hx-swap='innerHTML' hx-target='this' class="my-8 group alt")
+      div(hx-get='views/buy_level' id="buy" hx-trigger="reload-user from:body" hx-swap='innerHTML' hx-target='this' class="my-8 group alt")
         include partials/levels/buy_level.pug
 
     include partials/footer.pug
