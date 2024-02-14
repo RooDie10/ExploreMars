@@ -40,7 +40,7 @@
     @apply font-bold text-4xl mb-8;
   }
   .p {
-    @apply text-2xl leading-10;
+    @apply text-2xl leading-10 break-words mb-4;
   }
   .header {
     @apply flex items-center bg-transparent justify-between sticky h-16 px-20;
@@ -49,7 +49,8 @@
     @apply p-4 bg-altBgColor backdrop:backdrop-blur-sm backdrop:bg-bgColor/50;
   }
   .select {
-    @apply w-full p-4 bg-altBgColor/30;
+    @apply w-full p-4 bg-[#535353];
+    
   }
   .option {
     @apply bg-[#535353] rounded-none;

@@ -49,8 +49,8 @@ html.gutter(lang="en")
             include partials/admin/users/edit_user.pug
 
 
-  dialog(id='newLevelDialog' class='dialog relative w-3/5')
-    a(hx-on:click="closeModal('newLevelDialog')" class=" absolute right-6 w-4 leading-4 text-center p-1") x
+  dialog(id='newLevelDialog' class='dialog w-3/5')
+    a(hx-on:click="closeModal('newLevelDialog'); enableScroll()" class="cursor-pointer absolute right-6 w-4 leading-4 text-center p-1") x
     form(hx-post='/api/level'
       hx-swap='none'
       hx-indicator='#indicator'
@@ -93,7 +93,7 @@ html.gutter(lang="en")
           required)
 
 
-      button(id="newLevelButton" class='button w-2/3 my-0' type='submit') Submit
+      button(id="newLevelButton" class='button w-2/3 mt-8' type='submit') Submit
 
       p(id='indicator' class='htmx-indicator') Loading
       div.message

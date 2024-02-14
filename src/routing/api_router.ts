@@ -103,7 +103,7 @@ export const apiRouter = () => {
     validationBodyMiddleware,
     async (req: Request, res: Response) => {
       await repo.updateLevel(req)
-      res.set('HX-Trigger', 'reload-level').sendStatus(201)
+      res.set('HX-Trigger', 'reload-level').json({errors: []})
     }
   )
 

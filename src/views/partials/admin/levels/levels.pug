@@ -1,6 +1,6 @@
 h2.h2.mt-4 Levels 
 
-a(class="link no-underline cursor-pointer" hx-on:click="openModal('newLevelDialog')") Add Level 
+a(class="link no-underline cursor-pointer" hx-on:click="openModal('newLevelDialog'); disableScroll()") Add Level 
 
 ul#levels
   each level in levels 
