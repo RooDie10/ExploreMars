@@ -12,15 +12,13 @@ html.gutter(lang="en")
     title Admin panel
   body 
     include partials/header/header.pug
-    
+
     section(class="bg-[url('/images/hero-image.webp')] bg-cover bg-bottom bg-fixed h-[22vh] flex flex-col justify-center")
       div 
         span(class="h1 text-fontColor text-center block") Admin Page
 
     main.wrapper(class="py-4")
       ul(class="flex gap-2 my-8") 
-        li 
-          a.button(href="/admin" hx-get="/admin/" hx-select="#content" hx-push-url="/admin/" hx-target="#content" hx-swap="outerHTML transition:true") Main
         li 
           a.button(href="/admin/users" hx-trigger="reload-users from:body, click" hx-get="/admin/users/" hx-select="#content" hx-push-url="/admin/users/" hx-target="#content" hx-swap="outerHTML transition:true") Users
         li 
@@ -32,7 +30,7 @@ html.gutter(lang="en")
       section#content.slide-it
         case state 
           when 0
-            h2.h2.mt-4 Main section 
+            include partials/admin/users/users.pug 
           when 1
             include partials/admin/users/users.pug 
           when 2 
