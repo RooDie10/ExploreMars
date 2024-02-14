@@ -1,18 +1,16 @@
-footer(class="wrapper py-20 flex divide-x-2 divide-altBgColor/30")
+footer(class="wrapper py-20 flex divide-altBgColor/30")
   div(class="p-4")
     div 
       div(class="flex items-end")
         div(class="aspect-square h-24")
           img(src="/images/logo.png" alt="")
         span.h3 Exploring Mars
-      p.p Lorem ipsum dolor sit, amet consectetur adipisicing elit. Blanditiis rem mollitia exercitationem! Veniam, maiores. Necessitatibus.
+      p.p &copy; 2023 Mars Exploration. All rights reserved.
     div(class="flex mt-4 gap-4")
-      a(href="/" class="p-2 rounded-[100%] block h-12 bg-altBgColor aspect-square text-altFontColor")
-        img(src="/images/icons/mail.svg" class="size-full") 
-      a(href="/" class="p-2 rounded-[100%] block h-12 bg-altBgColor aspect-square text-altFontColor")
-        img(src="/images/icons/mail.svg" class="size-full") 
-      a(href="/" class="p-2 rounded-[100%] block h-12 bg-altBgColor aspect-square text-altFontColor")
-        img(src="/images/icons/mail.svg" class="size-full") 
+      a(href="https://github.com/RooDie10" class="p-2 rounded-[100%] block h-12 bg-altBgColor aspect-square text-altFontColor")
+        img(src="/images/icons/iconmonstr-github-3.svg" class="size-full") 
+      a(href="https://www.linkedin.com/in/tkhudayarov/" class="p-2 rounded-[100%] block h-12 bg-altBgColor aspect-square text-altFontColor")
+        img(src="/images/icons/iconmonstr-linkedin-3.svg" class="size-full") 
 
   div(class="p-4 w-[33%]")
     span.p(class="font-bold") Links
@@ -22,5 +20,9 @@ footer(class="wrapper py-20 flex divide-x-2 divide-altBgColor/30")
           a.link(href="/levels") Levels
   div(class="p-4 w-[33%]")     
     span.p(class="font-bold") Contact
-    a.link(href="tel:+999999999" class="block") +999999999999
-    a.link(href="mailto:mars@expo.mars" class="block") mars@expo.mars
+    div(class="flex gap-4")
+          img(src="/images/icons/phone.svg" class="aspect-square h-6" alt="mail icon")
+          a.link(href="tel:+999999999" class="block") +999999999999
+    div(class="flex gap-4")
+          img(src="/images/icons/mail.svg" class="aspect-square h-6" alt="phone icon")
+          a.link(href="mailto:mars@expo.mars" class="block") mars@expo.mars
