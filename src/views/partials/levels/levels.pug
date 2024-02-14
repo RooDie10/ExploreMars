@@ -1,7 +1,7 @@
 ul 
   each item in levels 
-    li(class='mx-auto my-8 p-8 bg-altBgColor/30 flex justify-between') 
-      div(class="flex flex-col justify-between px-4 w-2/3")
+    li(class='mx-auto my-8 p-8 bg-altBgColor/30 grid grid-cols-3 grid-rows-1 gap-8') 
+      div(class="flex flex-col justify-between col-span-1")
         div
           h3.h3=item.data.type
           p.p 
@@ -13,7 +13,7 @@ ul
         p.p(class="px-4")
           strong Description: 
           =item.data.description
-        div(class="mt-4 px-4")
+        div(class="mt-4")
           p.p 
             strong Included: 
           ul(class="pl-8 list-disc")

@@ -5,8 +5,8 @@ export const adminRouter = () => {
   const repo = new AdminRepo()
   const router = express.Router()
 
-  router.get('/', (req: Request, res: Response) => {
-    const prop = repo.makeMainPage(req)
+  router.get('/', async (req: Request, res: Response) => {
+    const prop = await repo.makeUsersPage(req)
     res.render('admin', prop)
   })
 
