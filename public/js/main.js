@@ -25,6 +25,7 @@ const handleForm = (form) => {
       } else {
         form.reset()
         closeModal(form.parentElement.id)
+        enableScroll()
       }
     })
   )
