@@ -95,10 +95,10 @@ html, body {
   scroll-behavior: smooth;
 }
 
-body::-webkit-scrollbar-track{
- background-color: red; 
+body::-webkit-scrollbar{
+ background: transparent; 
 }
 
 body::-webkit-scrollbar-thumb {
-  background-color: red;
+  background: rgba(151, 151, 151, 0.493);
 }
