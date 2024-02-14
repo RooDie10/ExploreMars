@@ -23,4 +23,9 @@ export class ViewsRepo extends Repo {
     } else prop = { isUserAuth: false, userData: null }
     return prop
   }
+
+  // async makeLevelData(id: string): Promise<Prop> {
+  //   const prop: Prop
+    
+  // }
 }

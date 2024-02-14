@@ -20,5 +20,11 @@ export const viewsRouter = () => {
     res.render('partials/levels/buy_level', prop)
   })
 
+  router.get('/level', async(req: Request, res: Response) => {
+    const levelId = req.query.id
+    // await repo.makeLevelData(levelId)
+    res.sendStatus(204)
+  })
+
   return router
 }
