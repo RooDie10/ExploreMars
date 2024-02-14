@@ -16,20 +16,34 @@ html(lang="en")
     section(class="bg-[url('/images/hero.webp')] bg-cover bg-fixed h-[32vh] flex flex-col justify-center")
       div 
         span(class="h1 text-fontColor mt-8 text-center block") Levels
-    section(class="wrapper pt-40 pb-8")
+    section(class="wrapper pt-40 pb-8 int")
       h1.h1 Lorem ipsum dolor sit.
       p.p Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab labore ad reprehenderit iusto tempora sequi ut ducimus vel quidem? Aut, dolore dolor? Recusandae ut nesciunt eius voluptatibus possimus?
-    section(class="wrapper grid grid-cols-2 grid-rows-3 gap-2")
-      img(src="/images/levels/image1.webp" class="w-8 h-8 ")
-      img(src="/images/levels/image2.webp" class="w-8 h-8 ")
-      img(src="/images/levels/image3.webp" class="w-8 h-8 ")
-      img(src="/images/levels/image4.webp" class="w-8 h-8 ")
-      img(src="/images/levels/image5.webp" class="w-8 h-8 col-span-2")
-    //- include partials/levels/levels.pug
+      div(hx-get='views/buy_level' hx-trigger="reload-user from:body" hx-swap='innerHTML' hx-target='this' class="my-8 group")
+        include partials/levels/buy_level.pug
+    section(class="grid grid-cols-3 grid-rows-2 gap-2 h-[100vh] mt-40 py-8")
+      img(src="/images/levels/image1.webp" class="size-full object-cover ")
+      img(src="/images/levels/image2.webp" class="size-full object-cover ")
+      img(src="/images/levels/image3.webp" class="size-full object-cover ")
+      img(src="/images/levels/image4.webp" class="size-full object-cover ")
+      img(src="/images/levels/image5.webp" class="size-full object-cover col-span-2")
 
-    //- div(hx-get='views/buy_level' hx-trigger="reload-user from:body" hx-swap='innerHTML' hx-target='this')
-      include partials/levels/buy_level.pug
+    section(class="wrapper pt-40 my-8")
+      h2.h2 Lorem ipsum dolor sit amet, consectetur adipisicing.
+      p.p Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab, explicabo quam doloremque laborum numquam distinctio incidunt delectus earum perspiciatis quis qui velit ullam optio praesentium excepturi in nam.
+    section(class="wrapper mt-10 py-8")
+
+      include partials/levels/levels.pug
+
+    section(class="wrapper mt-10 py-8 bg-altBgColor") 
+      h3.h3(class="text-altFontColor") Lorem ipsum dolor sit amet.
+      p.p(class="text-altFontColor") Lorem ipsum dolor sit amet consectetur adipisicing elit. Id quam modi harum fugiat officiis inventore, molestiae magnam!
+      div(hx-get='views/buy_level' hx-trigger="reload-user from:body" hx-swap='innerHTML' hx-target='this' class="my-8 group alt")
+        include partials/levels/buy_level.pug
+
+    include partials/footer.pug
 
     script(src="js/main.js")
     include partials/dialogs.pug
     include partials/levels/dialog.pug
+    script(src="/js/index_levels_observer.js") 

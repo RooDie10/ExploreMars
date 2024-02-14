@@ -1,11 +1,11 @@
 if isUserAuth
   - if (userData.level != undefined)
-    p
+    p.p(class="group-[.alt]:text-altFontColor")
       strong Your level is: 
       =user.level
-    p To change level contact us
+    p.p(class="group-[.alt]:text-altFontColor") To change level contact us
   - else
     button(class='button' hx-on:click="openModal('buyDialog')") Make order
 else
   button(hx-on:click="openModal('signinDialog')" class='button') Sign in
-  p To buy you need to be signed in 
+  p(class="group-[.alt]:text-altFontColor mt-2") To buy you need to be signed in 

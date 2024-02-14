@@ -1,10 +1,21 @@
 ul 
   each item in levels 
-    li(class='mx-auto my-4 p-4 rounded-xl bg-blue-100') 
-      h4 Type: #{item.data.type}
-      p Diescription: #{item.data.description}
-      p Price: #{item.data.price}
-      p Included:
-      ul 
-        each included in item.data.included
-          li #{included}
+    li(class='mx-auto my-8 p-8 bg-altBgColor/30 flex justify-between') 
+      div(class="px-4")
+        h3.h3=item.data.type
+        p.p 
+          strong Price: 
+          |#{item.data.price} $
+
+          div(hx-get='views/buy_level' hx-trigger="reload-user from:body" hx-swap='innerHTML' hx-target='this' class="mt-8")
+            include buy_level.pug
+      p.p(class="px-4")
+        strong Diescription: 
+        =item.data.description
+      div(class="px-4")
+        p.p 
+          strong Included: 
+        ul(class="pl-8 list-disc")
+          each included in item.data.included
+            li
+              p.p #{included}
