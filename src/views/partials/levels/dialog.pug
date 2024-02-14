@@ -1,12 +1,21 @@
 dialog(class="dialog" id="buyDialog")
-  a(class='absolute right-4 w-4 leading-4 text-center p-1' hx-on:click="closeModal('buyDialog')") 
-
-  form(hx-get='/order' hx-swap='innerHTML' hx-target="body" hx-select="main" hx-on:submit="closeModal('buyDialog')" hx-push-url="/order" id='buyForm' class='flex flex-col gap-4')
-    h2(class='text-xl font-bold mt-4') Buy tour 
-    div 
-      label(class='block' for='levelSelect') Select level
-      select(class='select' name='id' id='levelSelect')
-        each item in levels
-          option(value=item.id) #{item.data.type} 
-    button(id='buyButton' class='button' type='submit') buy
-    p(id='buyMessage' class='htmx-indicator') Loading
+  a(class='absolute cursor-pointer right-4 font-bold w-4 leading-4 text-center p-1' hx-on:click="closeModal('buyDialog')") x
+  div(class="flex divide-x-4 divide-bgColor/10")
+    div(class="p-4") 
+      h3.h3
+        strong You booking level:  
+        | gold 
+      p.p 
+        strong Description: 
+        | type
+      p.p 
+        strong 
+    form(hx-get='/order' hx-swap='innerHTML' hx-target="body" hx-select="main" hx-on:submit="closeModal('buyDialog')" hx-push-url="/order" id='buyForm' class='flex flex-col gap-4 p-4')
+      h3.h3 Buy tour 
+      div 
+        label.p(class='block m-0' for='levelSelect') Select level
+        select(class='select bg-bgColor/10' name='id' id='levelSelect')
+          each item in levels
+            option(value=item.id) #{item.data.type} 
+      button(id='buyButton' class='button' type='submit') buy
+      p(id='buyMessage' class='htmx-indicator') Loading
