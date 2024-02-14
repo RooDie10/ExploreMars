@@ -39,3 +39,6 @@ const enableScroll = () => {
   document.body.style.overflowY = ''
 }
 
+document.onkeydown = (e) => {
+  if (e.key === 'Escape') enableScroll()
+}
