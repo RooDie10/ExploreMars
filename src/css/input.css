@@ -13,7 +13,10 @@
     @apply p-2 font-bold bg-actionColor text-fontColor text-nowrap;
   }
   .input {
-    @apply p-2 bg-bgColor/10 transition-all duration-150 ease-in outline outline-transparent outline-4;
+    @apply p-2 bg-bgColor/10 transition-all duration-150 outline outline-transparent outline-4;
+  }
+  .input:focus-visible {
+    outline: white !important;
   }
   .input-error {
     @apply outline-4 outline-red-600 outline;
@@ -46,7 +49,10 @@
     @apply p-4 bg-altBgColor backdrop:backdrop-blur-sm backdrop:bg-bgColor/50;
   }
   .select {
-    @apply w-full p-2 rounded-lg bg-blue-200;
+    @apply w-full p-4 bg-altBgColor/30;
+  }
+  .option {
+    @apply bg-[#535353] rounded-none;
   }
 }
 
@@ -91,12 +97,13 @@
   scrollbar-gutter: stable;
 }
 
-html, body {
+html,
+body {
   scroll-behavior: smooth;
 }
 
-body::-webkit-scrollbar{
- background: transparent; 
+body::-webkit-scrollbar {
+  background: transparent;
 }
 
 body::-webkit-scrollbar-thumb {

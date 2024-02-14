@@ -1,7 +1,7 @@
 h2.h2.mt-4 Users
 ul
   each user in users 
-    li(class="p-2 bg-blue-100 rounded-xl my-4") 
+    li(class="p-2 bg-altBgColor/30 rounded-xl my-4") 
       p(class="font-bold") #{user.name}
       p 
         strong Email: 
@@ -10,4 +10,4 @@ ul
         p 
           strong Level type:  
           =user.level
-      a(class="link cursor-pointer" hx-swap="outerHTML transition:true" hx-select="#content" hx-target="#content" hx-push-url='/admin/users/' + user.id hx-get='/admin/users/' + user.id) Open
+      a(class="link no-underline cursor-pointer" hx-swap="outerHTML transition:true" hx-select="#content" hx-target="#content" hx-push-url='/admin/users/' + user.id hx-get='/admin/users/' + user.id) Open

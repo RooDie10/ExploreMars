@@ -1,5 +1,5 @@
 doctype html
-html(lang="en")
+html.gutter(lang="en")
   head
     meta(charset="UTF-8")
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
@@ -12,18 +12,21 @@ html(lang="en")
     title Admin panel
   body 
     include partials/header/header.pug
+    
+    section(class="bg-[url('/images/hero-image.webp')] bg-cover bg-bottom bg-fixed h-[22vh] flex flex-col justify-center")
+      div 
+        span(class="h1 text-fontColor text-center block") Admin Page
 
-    main.wrapper
-      h1.h1 Admin page
-      ul(class="flex gap-2") 
+    main.wrapper(class="py-4")
+      ul(class="flex gap-2 my-8") 
         li 
-          a.link(href="/admin" hx-get="/admin/" hx-select="#content" hx-push-url="/admin/" hx-target="#content" hx-swap="outerHTML transition:true") Main
+          a.button(href="/admin" hx-get="/admin/" hx-select="#content" hx-push-url="/admin/" hx-target="#content" hx-swap="outerHTML transition:true") Main
         li 
-          a.link(href="/admin/users" hx-trigger="reload-users from:body, click" hx-get="/admin/users/" hx-select="#content" hx-push-url="/admin/users/" hx-target="#content" hx-swap="outerHTML transition:true") Users
+          a.button(href="/admin/users" hx-trigger="reload-users from:body, click" hx-get="/admin/users/" hx-select="#content" hx-push-url="/admin/users/" hx-target="#content" hx-swap="outerHTML transition:true") Users
         li 
-          a.link(href="/admin/orders" hx-get="/admin/orders/" hx-select="#content" hx-push-url="/admin/orders/" hx-target="#content" hx-swap="outerHTML transition:true") Orders
+          a.button(href="/admin/orders" hx-get="/admin/orders/" hx-select="#content" hx-push-url="/admin/orders/" hx-target="#content" hx-swap="outerHTML transition:true") Orders
         li 
-          a.link(href="/admin/levels" hx-trigger="reload-levels from:body, click" hx-get="/admin/levels/" hx-select="#content" hx-push-url="/admin/levels/" hx-target="#content" hx-swap="outerHTML transition:true") Levels 
+          a.button(href="/admin/levels" hx-trigger="reload-levels from:body, click" hx-get="/admin/levels/" hx-select="#content" hx-push-url="/admin/levels/" hx-target="#content" hx-swap="outerHTML transition:true") Levels 
 
 
       section#content.slide-it

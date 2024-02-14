@@ -1,20 +1,21 @@
 h2.h2.mt-4 Levels 
 
-a(class="link cursor-pointer" hx-on:click="openModal('newLevelDialog')") Add Level 
+a(class="link no-underline cursor-pointer" hx-on:click="openModal('newLevelDialog')") Add Level 
 
 ul#levels
   each level in levels 
-    li(class="p-2 bg-blue-100 rounded-xl my-4") 
-      p(class="font-bold") #{level.data.type}
-      p
-        strong description: 
-        =level.data.description 
-      p
-        strong included:
-      ul(class="list-disc ml-4") 
-        each item in level.data.included
-          li=item
-      p
-        strong price: 
-        =level.data.price
-      a(class="link cursor-pointer" hx-swap="outerHTML transition:true" hx-select="#content" hx-target="#content" hx-push-url='/admin/levels/' + level.id hx-get='/admin/levels/' + level.id) Open
+    li(class="p-4 bg-altBgColor/30 my-4") 
+      div
+        p(class="font-bold") #{level.data.type}
+        p
+          strong description: 
+          =level.data.description 
+        p
+          strong included:
+        ul(class="list-disc ml-4") 
+          each item in level.data.included
+            li=item
+        p
+          strong price: 
+          =level.data.price
+      a(class="button block size-fit mt-4 cursor-pointer" hx-swap="outerHTML transition:true" hx-select="#content" hx-target="#content" hx-push-url='/admin/levels/' + level.id hx-get='/admin/levels/' + level.id) Open

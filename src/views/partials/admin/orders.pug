@@ -8,19 +8,19 @@ form(
   hx-swap="outerHTML transition:true"
   hx-indicator="#loading")
   label.block(for="ordersSelect") Select level 
-  select#ordersSelect(class="select w-auto bg-blue-100" name="levelId")
-    option(value="") All levels
+  select#ordersSelect(class="select w-auto" name="levelId")
+    option.option(value="") All levels
       each level in levels
-        option(value=level.id) #{level.data.type} 
+        option.option(value=level.id) #{level.data.type} 
   p#loading(class="htmx-indicator cursor-default") Loading
 
 ul#orders
   - if (users.length == 0)
-    li(class="p-2 bg-blue-100 rounded-xl my-4") 
+    li(class="p-4 bg-altBgColor/30 my-4") 
       p No orders for that level
   - else
     each user in users 
-      li(class="p-2 bg-blue-100 rounded-xl my-4") 
+      li(class="p-4 bg-altBgColor/30 my-4") 
         p(class="font-bold") #{user.name}
         p 
           strong Email 
