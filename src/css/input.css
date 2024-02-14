@@ -10,10 +10,10 @@
     @apply text-fontColor;
   }
   .button {
-    @apply p-2 rounded-2xl font-bold bg-actionColor text-fontColor text-nowrap;
+    @apply p-2 font-bold bg-actionColor text-fontColor text-nowrap;
   }
   .input {
-    @apply p-2 rounded-xl bg-blue-100 transition-all duration-150 ease-in outline outline-transparent outline-4;
+    @apply p-2 bg-bgColor/10 transition-all duration-150 ease-in outline outline-transparent outline-4;
   }
   .input-error {
     @apply outline-4 outline-red-600 outline;
@@ -43,7 +43,7 @@
     @apply flex items-center bg-transparent justify-between sticky h-16 px-20;
   }
   .dialog {
-    @apply p-4 rounded-xl;
+    @apply p-4 bg-altBgColor backdrop:backdrop-blur-sm backdrop:bg-bgColor/50;
   }
   .select {
     @apply w-full p-2 rounded-lg bg-blue-200;
@@ -85,4 +85,8 @@
 ::view-transition-new(slide-it) {
   animation: 420ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in,
     600ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-right;
+}
+
+.gutter {
+  scrollbar-gutter: stable;
 }

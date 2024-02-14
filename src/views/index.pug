@@ -1,5 +1,5 @@
 doctype html
-html(lang="en")
+html.gutter(lang="en")
   head
     meta(charset="UTF-8")
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
@@ -13,7 +13,7 @@ html(lang="en")
   body.slide-it
     include partials/header/header.pug
 
-    section(class="bg-[url('/images/hero-image.webp')] bg-cover bg-[center_-6rem] bg-fixed h-[64vh] flex flex-col justify-center")
+    section(class="bg-[url('/images/hero.webp')] bg-cover bg-fixed h-[64vh] flex flex-col justify-center")
       div 
         span(class="h1 text-fontColor text-center block") Welcome to Mars
         span(class="text-fontColor text-center block") something info
@@ -36,7 +36,7 @@ html(lang="en")
             h3.h3(class="text-fontColor") Lorem ipsum dolor sit amet consectetur.
             p.p(class="text-fontColor") Lorem, ipsum dolor sit amet consectetur adipisicing elit. Commodi libero atque nostrum laboriosam sint, accusamus minima nihil. Asperiores, eius. Mollitia.
           a.link(href='/levels' class="size-fit") See more
-      hr(class="border-b-4 border-altBgColor border border-solid w-1/2 mx-auto my-16 h-1 block rounded-xl")
+      hr(class="border-b-4 border-altBgColor/30 border border-solid w-1/2 mx-auto my-16 h-1 block rounded-xl")
       div(class="grid grid-rows-1 grid-cols-6 h-[35vh] gap-12 mb-8")
         div(class=" row-start-1 col-start-4 col-span-3")
           img(src="/images/features/colony.webp" alt="Mars landscape" class='size-full object-cover')
@@ -45,7 +45,7 @@ html(lang="en")
             h3.h3(class="text-fontColor") Lorem ipsum dolor sit amet consectetur.
             p.p(class="text-fontColor") Lorem, ipsum dolor sit amet consectetur adipisicing elit. Commodi libero atque nostrum laboriosam sint, accusamus minima nihil. Asperiores, eius. Mollitia.
           a.link(href='/levels' class="size-fit self-end") See more
-      hr(class="border-b-4 border-altBgColor border border-solid w-1/2 mx-auto my-16 h-1 block rounded-xl")
+      hr(class="border-b-4 border-altBgColor/30 border border-solid w-1/2 mx-auto my-16 h-1 block rounded-xl")
       div(class="grid grid-rows-1 grid-cols-6 h-[35vh] gap-12 mb-8")
         div(class=" col-span-3")
           img(src="/images/features/colony_street.webp" alt="Mars landscape" class='size-full object-cover')
@@ -83,22 +83,22 @@ html(lang="en")
 
       section(class="wrapper grid grid-cols-2 gap-8  bg-altBgColor pt-40 pb-20")
         h2.h2(class="text-altFontColor text-center w-full col-span-2") Lorem, ipsum dolor.
-        div(class=" col-start-1")
+        div(class="col-start-1")
           img(src="/images/contacts_colony.webp" alt="Colony image")
-        div(class="col-start-2")
+        div(class="col-start-2 p-4 bg-bgColor/10 flex gap-4 flex-col justify-items-center")
           h3.h3(class="text-altFontColor") Lorem, ipsum dolor.
           p.p(class="text-altFontColor") Lorem ipsum dolor sit amet.
-          a.link(href="tel:+999999999" class="block") +999999999999
-          a.link(href="mailto:mars@expo.mars" class="block") mars@expo.mars
-        
+          div(class="flex gap-4")
+            img(src="/images/icons/phone.svg" class="aspect-square h-6" alt="mail icon")
+            a.link(href="tel:+999999999" class="block") +999999999999
+          div(class="flex gap-4")
+            img(src="/images/icons/mail.svg" class="aspect-square h-6" alt="phone icon")
+            a.link(href="mailto:mars@expo.mars" class="block") mars@expo.mars
+          p.p(class="text-altFontColor") Lorem ipsum dolor sit amet.
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2543.9230831840227!2d-74.00157556616608!3d40.690459887922366!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a451e187d7d%3A0x29027197a5881aef!2zODgtOTYgQW1pdHkgU3QsIEJyb29rbHluLCBOWSAxMTIwMSwg0KHQqNCQ!5e0!3m2!1sru!2sru!4v1707845449715!5m2!1sru!2sru" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
       include partials/footer.pug
-
-
-
-
-
-
-
 
     script(src="js/main.js")
     include partials/dialogs.pug
+    script(src="/js/index_observer.js") 

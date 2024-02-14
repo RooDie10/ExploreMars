@@ -4,7 +4,7 @@ header(class="flex items-center bg-transparent justify-between fixed w-full h-16
     nav(class='hidden md:block')
       ul
         li
-          a.link(href="/levels") Levels
+          a.link(href="/levels" class="no-underline text-fontColor group-[.intersect]:text-actionColor transition-all") Levels
 
   div(hx-trigger="reload-user from:body" hx-get="/views/header" hx-swap="innerHTML" hx-target="this")
     include header_sign.pug

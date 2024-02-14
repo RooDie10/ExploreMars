@@ -1,5 +1,5 @@
-dialog(id='signinDialog' class='dialog relative')
-  a(hx-on:click="closeModal('signinDialog')" class=" absolute right-6 w-4 leading-4 text-center p-1") x
+dialog(id='signinDialog' class='dialog')
+  a(hx-on:click="closeModal('signinDialog')" class="absolute right-6 w-4 leading-4 text-center p-1") x
   form(hx-post='/api/signin'
     hx-swap='none'
     hx-indicator='#signinIndicator'
@@ -14,6 +14,7 @@ dialog(id='signinDialog' class='dialog relative')
         name='email'
         type='email'
         autocomplete='email'
+        placeholder='example@email.com'
         required)
     div 
       label(for='SigninPassword' class='block self-start') Password
@@ -22,6 +23,7 @@ dialog(id='signinDialog' class='dialog relative')
         name='password'
         type='password'
         autocomplete='current-password'
+        placeholder='password'
         required)
     button(id="signinButton" class='button w-2/3 my-0' type='submit') Submit
     a(class='link cursor-pointer'
@@ -31,7 +33,7 @@ dialog(id='signinDialog' class='dialog relative')
 
     div.message
 
-dialog(id='signupDialog' class='dialog relative')
+dialog(id='signupDialog' class='dialog')
   a(hx-on:click="closeModal('signupDialog')" class=" absolute right-6 w-4 leading-4 text-center p-1") x
   form(hx-post='/api/signup'
     hx-swap='none'
@@ -47,6 +49,7 @@ dialog(id='signupDialog' class='dialog relative')
         name='name'
         type='text'
         autocomplete='name'
+        placeholder='your full name'
         required)
     div 
       label(for='SignupEmail' class='block self-start') Email
@@ -55,6 +58,7 @@ dialog(id='signupDialog' class='dialog relative')
         name='email'
         type='email'
         autocomplete='email'
+        placeholder='example@email.com'
         required)
     div 
       label(for='SignupPassword' class='block self-start') Password
@@ -63,6 +67,7 @@ dialog(id='signupDialog' class='dialog relative')
         name='password'
         type='password'
         autocomplete='new-password'
+        placeholder='password'
         required)
     button(id="signupButton" class='button w-2/3 my-0' type='submit') Submit
     a(class='link cursor-pointer'
@@ -70,8 +75,4 @@ dialog(id='signupDialog' class='dialog relative')
     p(id='signupIndicator' class='htmx-indicator') Loading
     div.message
 
-//- dialog(open id='cookieDialog' class='absolute bottom-0 p-6 w-2/3 mx-auto flex justify-between items-center')
-//-   p(class="font-bold text-xl") we use cookies, you cannot deny it (yet)
-//-   form(method="dialog")
-//-     button.button(type="submit") accept
 script(src='/js/dialogs.js')
