@@ -13,10 +13,10 @@ div#user(class="p-4 !bg-altBgColor/30 !rounded-none my-4" hx-trigger="reload-use
       select.select(class="border-black border-solid border-2 block w-min" name="level")
         each level in levels 
           - if(user.level == level.data.type)
-            option(value=level.id selected)=level.data.type
+            option.option(value=level.id selected)=level.data.type
           - else
-            option(value=level.id)=level.data.type  
-        option(value="") None
+            option.option(value=level.id)=level.data.type  
+        option.option(value="") None
     div.message
     div(class="mt-4")
       button.button(type="submit") Accept
