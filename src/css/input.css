@@ -91,6 +91,10 @@
   scrollbar-gutter: stable;
 }
 
+html, body {
+  scroll-behavior: smooth;
+}
+
 body::-webkit-scrollbar-track{
  background-color: red; 
 }

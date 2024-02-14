@@ -13,20 +13,18 @@ html(lang="en")
   body
     include partials/header/header.pug
 
-    main.wrapper
-      h1.h1 Profile
-      p something about profile
-      div#user
-        h2 User info: 
+    section(class="bg-[url('/images/new_hero.webp')] bg-cover h-[100vh] wrapper pt-40 py-8")
+      div#user(class="mx-auto size-fit bg-bgColor/30 p-8 backdrop-blur-lg")
+        h2.h2 User info: 
         div 
-          p 
+          p.p 
             strong Name: 
             =user.name
-          p 
+          p.p 
             strong Email: 
             =user.email
         if level
-          p(id='level')
+          p.p(id='level' class="mb-8")
             strong your level is: 
             =level.data.type
 
