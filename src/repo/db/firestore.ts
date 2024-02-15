@@ -29,6 +29,10 @@ export class FirestoreDB {
     this.db = getFirestore(this.app)
   }
 
+  sortLevels(a: Level, b: Level): number {
+    return a!.data.price - b!.data.price
+  }
+
   async getLevels() {
     const docRef = query(collection(this.db, 'levels'))
     const docSnap = await getDocs(docRef)
@@ -37,6 +41,7 @@ export class FirestoreDB {
       const id = doc.id
       return { id, data }
     })
+    result.sort(this.sortLevels)
     return result
   }
 

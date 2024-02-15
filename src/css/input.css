@@ -14,10 +14,10 @@
     @apply p-2 font-bold bg-actionColor text-fontColor text-nowrap;
   }
   .input {
-    @apply p-2 bg-bgColor/10 transition-all duration-150 outline outline-transparent outline-4;
+    @apply p-2 bg-bgColor/10 transition-all border-solid outline outline-transparent outline-2;
   }
   .input:focus-visible {
-    outline: white !important;
+    @apply outline-black
   }
   .input-error {
     @apply outline-4 outline-red-600 outline;
