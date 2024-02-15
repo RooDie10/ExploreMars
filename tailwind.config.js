@@ -3,6 +3,9 @@ module.exports = {
   content: ['./src/**/**/**/*.{pug,css}', './public/**/*.{html,js,css}'],
   theme: {
     extend: {
+      fontFamily: {
+        font: '"Ubuntu Mono", monospace;'
+      },
       colors: {
         bgColor: '#121212',
         altBgColor: '#e8e8e8',
