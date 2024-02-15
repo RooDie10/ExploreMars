@@ -23,18 +23,15 @@ No installation is required to use this project. Just go to the website and star
 ## Technology Stack
 The project leverages the power of several popular technologies:
 
-- TypeScript: This strongly typed superset of JavaScript adds static types to your code, enhancing its readability and reliability.
-
-- Express: This web application framework for Node.js is used for building web applications and APIs.
-
-- Pug: An elegant template engine for Node.js, Pug is used for creating clean, whitespace-sensitive syntax for HTML.
-
-- Firebase: As our database of choice, Firebase provides a NoSQL cloud database to store and sync data in realtime.
-
-- bcrypt: This library is used for hashing passwords, a crucial aspect of securing user data.
-
-- dotenv: This zero-dependency module loads environment variables from a .env file into process.env, providing a secure way to store configuration variables.
-
-- express-validator: A set of express.js middlewares that wraps validator.js validator and sanitizer functions, express-validator is used to validate and sanitize input data.
+- HTMX
+- Tailwind CSS
+- TypeScript
+- Express
+- Pug
+- Firebase
+- bcrypt
+- dotenv
+- express-validator
+- cookie-parser
 
 
