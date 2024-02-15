@@ -1,26 +1,18 @@
 dialog(class="dialog" id="buyDialog")
   a(class='absolute cursor-pointer right-4 font-bold w-4 leading-4 text-center p-1' hx-on:click="closeModal('buyDialog')") x
-  div(class="flex divide-x-4 divide-bgColor/10")
-    div(class="p-4") 
-      h3.h3 gold
-      p.p 
-        strong Description: 
-        | type
-      p.p 
-        strong Price: 
-        | 300 $
-      p.p 
-        strong Included: 
-      ul(class="list-disc pl-8") 
-        li 
-          p.p item
-        li 
-          p.p item
-    form(hx-get='/order' hx-trigger="submit" hx-swap='innerHTML' hx-target="body" hx-select="main" hx-on:submit="closeModal('buyDialog'); enableScroll()" hx-push-url="/order" id='buyForm' class='flex flex-col gap-4 p-4')
+  div(class="grid grid-cols-4 divide-x-4 divide-bgColor/10")
+    div#dialog-info(class="p-4 col-span-3")
+    form(hx-get='/order' hx-trigger="submit" hx-swap='innerHTML' hx-target="body" hx-select="main" hx-on:submit="closeModal('buyDialog'); enableScroll()" id='buyForm' class='flex flex-col gap-4 p-4 col-start-4')
       h3.h3 Buy tour 
       div 
         label.p(class='block m-0' for='levelSelect') Select level
-        select(class='select bg-bgColor/10' name='id' id='levelSelect' hx-trigger="change, revealed" hx-vals='js:{"id": getBuySelectValue("levelSelect")}' hx-get="/views/level")
+        select(class='select bg-bgColor/10' name='id' id='levelSelect' 
+        hx-trigger="change, revealed" 
+        hx-vals='js:{"id": getBuySelectValue("levelSelect")}' 
+        hx-get="/views/level" 
+        hx-swap="outerHTML" 
+        hx-target="#dialog-info"
+        hx-select="#dialog-info")
           each item in levels
             option(value=item.id) #{item.data.type} 
       button(id='buyButton' class='button' type='submit') Buy

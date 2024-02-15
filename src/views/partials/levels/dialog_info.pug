@@ -1,0 +1,14 @@
+div#dialog-info(class="p-4 col-span-3") 
+  h3.h3 #{level.data.type}
+  p.p(class="mb-0")
+    strong Description: 
+  p.p=level.data.description
+  p.p 
+    strong Price: 
+    | #{level.data.price} $
+  p.p 
+    strong Included: 
+  ul(class="list-disc pl-8") 
+    each item in level.data.included
+      li 
+        p.p=item

@@ -2,7 +2,7 @@ doctype html
 html(lang="en")
   head
     meta(charset="UTF-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
     title Order
     link(rel="stylesheet" href="/css/style.css")
     script(
@@ -10,20 +10,23 @@ html(lang="en")
       integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC",
       crossorigin="anonymous"
     )
-  body(class="bg-blue-100")
-    main(class="size-fit mx-auto mt-60 p-4 bg-white rounded-xl")
-      div.levelinfo  
-        h1.h1 You buing level 
-          strong=level.data.type 
-      form(hx-post="/api/buy" hx-vals=`{"selectedLevelId":"${level.id}"}` hx-swap="none")
-        div 
-          label(class="block" for="card") Your card number
-          input.input#card(type="text" name="card" required) 
-        div 
-          label(class="block" for="date") Your card date
-          input.input#date(type="text" name="date" required) 
-        div 
-          label(class="block" for="security") Your card security code
-          input.input#security(type="text" name="security" required) 
-        button.button(type="submit") Buy
-      
+    script(src="https://unpkg.com/imask")
+  body
+    section(class="bg-[url('/images/new_hero.webp')] bg-cover bg-bottom h-[100vh] wrapper pt-40 py-8")
+      div(class="mx-auto size-fit bg-bgColor/30 p-8 backdrop-blur-lg")
+        div.levelinfo  
+          h1.h1 You buing level: #{level.data.type} 
+        form(hx-post="/api/buy" hx-vals=`{"selectedLevelId":"${level.id}"}` hx-swap="none")
+          div 
+            label(class="block" for="card") Your card number
+            input.input#card(type="text" name="card" required) 
+          div 
+            label(class="block" for="date") Your card date
+            input.input#date(type="text" name="date" required) 
+          div 
+            label(class="block" for="security") Your card security code
+            input.input#security(type="text" name="security" required) 
+          div(class="flex gap-4 mt-4 items-center")
+            button.button(type="submit") Buy
+            a.button(href="/levels" class="bg-altBgColor text-altFontColor") Back
+    script(src="/js/order.js")

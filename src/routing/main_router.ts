@@ -46,7 +46,7 @@ export const mainRouter = () => {
     const prop = await repo.makeOrderPage(req)
     if (!prop) return res.redirect('/levels')
     
-    res.render('order', prop)
+    res.set("HX-Redirect", `/order?id=${req.query.id}`).render('order', prop)
   })
   
 

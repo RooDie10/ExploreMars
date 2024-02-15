@@ -24,8 +24,11 @@ export class ViewsRepo extends Repo {
     return prop
   }
 
-  // async makeLevelData(id: string): Promise<Prop> {
-  //   const prop: Prop
-    
-  // }
+  async makeLevelData(req: Request): Promise<Prop> {
+    const prop = this.makeProp(req)
+    const id = req.query.id!.toString()
+    const level = await this.db.getLevel(id)
+    prop.level = level
+    return prop
+  }
 }
